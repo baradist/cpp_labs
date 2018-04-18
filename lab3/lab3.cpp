@@ -27,7 +27,8 @@ void printArray(const char arr[][ROWS], size_t columns);
 template<typename T>
 void printArray(T ***arr, size_t X = DIM_SIZE, size_t Y = DIM_SIZE, size_t Z = DIM_SIZE);
 
-void printArray(int **arr, size_t X, size_t Y);
+template<typename T>
+void printArray(T **arr, size_t X, size_t Y);
 
 template<typename T>
 void printArray(const T *arr, size_t X);
@@ -617,23 +618,43 @@ void task7() {
     //стало: '*' '*' '*' '*' '*' '_' '_' '_' '_' '_'
     //и распечатайте массив по строкам - "постройте распределение"
 
-//    char array[][ROWS] = *char [COLUMNS][ROWS];
-//    char *p = *array;
-//    for (int i = 0; i < ROWS * COLUMNS; i++) {
-//        *p = (rand() % 2) ? '*' : '_';
-//    }
-//    printArray(array, COLUMNS);
-//    for (int i = 0; i < ROWS; i++) {
-//        selectionSort(array[i], COLUMNS);
-//
-//    }
+    char ** arr = new char*[ROWS];
+    for (int i = 0; i < ROWS; i++) {
+        arr[i] = new char[COLUMNS];
+        for (int j = 0; j < COLUMNS;j++) {
+            arr[i][j] = (rand() % 2) ? '*' : '_';
+        }
+    }
+    printArray(arr, COLUMNS, ROWS);
+    for (int i = 0; i < ROWS; i++) {
+        selectionSort(arr[i], COLUMNS); // TODO: get rid of selection sort here
+    }
+    printf("\n");
+    printArray(arr, COLUMNS, ROWS);
 
     // 7б. Модифицируйте предыдущее задание следующим способом:
     //После заполнения массива с помощью генератора случайных чисел
     //"сдвиньте" звездочки по столбцам вниз и распечатайте полученное
     //"распределение"
+    char *tmpVerticalArray = new char[ROWS];
+    for (int col = 0; col < COLUMNS; col++) {
+        for (int row = 0; row < ROWS; row++) {
+            tmpVerticalArray[row] = arr[row][col];
+        }
+        selectionSort(tmpVerticalArray, ROWS); // TODO: get rid of selection sort here
+        for (int row = 0; row < ROWS; row++) {
+            arr[row][col] = tmpVerticalArray[row];
+        }
+    }
+    delete[] tmpVerticalArray;
+    printf("\n");
+    printArray(arr, COLUMNS, ROWS);
 
-
+    // housekeeping
+    for (int i = 0; i < ROWS; i++) {
+        delete[] arr[i];
+    }
+    delete[] arr;
 }
 
 template<typename T>
@@ -671,7 +692,8 @@ void printArray(T ***arr, size_t X, size_t Y, size_t Z) {
     }
 }
 
-void printArray(int **arr, size_t X, size_t Y) {
+template<typename T>
+void printArray(T **arr, size_t X, size_t Y) {
     for (int y = 0; y < Y; y++) {
         for (int x = 0; x < X; x++) {
             cout << arr[y][x] << ' ';
