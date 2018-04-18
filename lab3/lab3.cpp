@@ -49,7 +49,7 @@ void task5();
 void task5_with_string();
 
 void task6();
-void task6_();
+void task6_incorrect();
 
 void task7();
 
@@ -514,35 +514,31 @@ void task6() {
     //			  |_________|
 
     double dArray[][3][3] = {{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}},
-                          {{2, 2, 2}, {2, 2, 2}, {2, 2, 2}},
-                          {{3, 3, 3}, {3, 3, 3}, {3, 3, 3}},
-                          {{4, 4, 4}, {4, 4, 4}, {4, 4, 4}}};
-	size_t sizeZ = sizeof(dArray) / sizeof(*dArray);
+                             {{2, 2, 2}, {2, 2, 2}, {2, 2, 2}},
+                             {{3, 3, 3}, {3, 3, 3}, {3, 3, 3}},
+                             {{4, 4, 4}, {4, 4, 4}, {4, 4, 4}}};
+    size_t sizeZ = sizeof(dArray) / sizeof(*dArray);
+    size_t sizeLayer = sizeof(*dArray) / sizeof(***dArray);
     printArray_(dArray, sizeZ);
+    double *p1;
+    double *p2;
     for (int i = 0; i < sizeZ; i += 2) {
-		//size_t sizeXY = sizeof(*dArray) / sizeof(***dArray);
-		//double *pointer = *dArray[i];
-		//for (int j = 0; j < sizeXY; j++) {
-		//for ()
-		//	//Çàìå÷àíèå: ÍÅ ÍÓÆÍÎ ÌÎÄÈÔÈÖÈÐÎÂÀÒÜ ÂÛÐÀÆÅÍÈß ÑÏÐÀÂÀ ÎÒ ÇÍÀÊÀ ÐÀÂÅÍÑÒÂÀ!!!
-			double (*t1)[3] = dArray[i];
-			double (*t2)[3] = dArray[i + 1];
-		//	dArray[i + 1] = t;
-		//	//ïåðåñòàâëÿåì ìåñòàìè ýëåìåíòû i-òîãî è i+1-îãî ñëîåâ
-		//}
+        //Çàìå÷àíèå: ÍÅ ÍÓÆÍÎ ÌÎÄÈÔÈÖÈÐÎÂÀÒÜ ÂÛÐÀÆÅÍÈß ÑÏÐÀÂÀ ÎÒ ÇÍÀÊÀ ÐÀÂÅÍÑÒÂÀ!!!
+        double (*t1)[3] = dArray[i];
+        double (*t2)[3] = dArray[i + 1];
+        //ïåðåñòàâëÿåì ìåñòàìè ýëåìåíòû i-òîãî è i+1-îãî ñëîåâ
+        p1 = *t1;
+        p2 = *t2;
+        for (int j = 0; j < sizeLayer; j++, p1++, p2++) {
+            double t = *p1;
+            *p1 = *p2;
+            *p2  = t;
+        }
     }
     printArray_(dArray, sizeZ);
- //   for (int z = 0; z < sizeZ; z++) {
- //       for (int y = 0; y < sizeY; y++) {
- //           delete[] dArray[z][y];
- //       }
- //       delete[] dArray[z];
- //   }
-    delete[] dArray;
-
 }
 
-void task6_() {
+void task6_incorrect() {
 	//Çàäàíèå 6. Îáúÿâëåíèå è èñïîëüçîâàíèå óêàçàòåëåé íà ìíîãîìåðíûå
 	// ìàññèâû. Ïðîèíèöèàëèçèðóéòå òðåõìåðíûé ìàññèâ
 	//double dArray[4][3][3] òàê, êàê ïîêàçàíî íà ðèñóíêå è íàïèøèòå ôðàãìåíò
