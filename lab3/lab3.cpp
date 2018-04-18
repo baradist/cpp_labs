@@ -522,6 +522,7 @@ void task6() {
     printArray_(dArray, sizeZ);
     double *p1;
     double *p2;
+    double t;
     for (int i = 0; i < sizeZ; i += 2) {
         //Çàìå÷àíèå: ÍÅ ÍÓÆÍÎ ÌÎÄÈÔÈÖÈÐÎÂÀÒÜ ÂÛÐÀÆÅÍÈß ÑÏÐÀÂÀ ÎÒ ÇÍÀÊÀ ÐÀÂÅÍÑÒÂÀ!!!
         double (*t1)[3] = dArray[i];
@@ -530,7 +531,7 @@ void task6() {
         p1 = *t1;
         p2 = *t2;
         for (int j = 0; j < sizeLayer; j++, p1++, p2++) {
-            double t = *p1;
+            t = *p1;
             *p1 = *p2;
             *p2  = t;
         }
