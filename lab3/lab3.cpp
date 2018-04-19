@@ -1,9 +1,9 @@
 /*************************************************************
-	Практическое занятие №3. Встроенные массивы.
-							Динамическое выделение памяти.
-							Простейшие алгоритмы сортировки и поиска.
-							Сложные указатели.
-							Ссылки.
+    Практическое занятие №3. Встроенные массивы.
+                            Динамическое выделение памяти.
+                            Простейшие алгоритмы сортировки и поиска.
+                            Сложные указатели.
+                            Ссылки.
 *************************************************************/
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -12,7 +12,7 @@
 #include <cstring>
 #include <ctime>
 
-//#define	  stop __asm nop
+//#define      stop __asm nop
 using namespace std;
 
 static const int DIM_SIZE = 3;
@@ -76,7 +76,7 @@ int main() {
 
 void task1() {
     ///////////////////////////////////////////////////////////////
-    //			Встроенные массивы                               //
+    //            Встроенные массивы                             //
     ///////////////////////////////////////////////////////////////
 
     // Задание 1. Объявите трехмерный массив и сформируйте указанные
@@ -89,16 +89,16 @@ void task1() {
                                      {{3, 3, 3}, {3, 3, 3}, {3, 3, 3}}};
     printArray_(arr);
     //б) объявите неинициализированный массив и присвойте значения элементам
-    //	с помощью кода
-    //					 |--------|
-    //				   / |3  3  3 |
-    //    			 |---------|3 |
-    //			   / | 2  2  2 |3 |
-    //			  |---------|2 |__|
-    //			  | 1  1  1 |2 | /
-    //			  | 1  1  1 |__|
-    //			  | 1  1  1 | /
-    //			  |_________|
+    //    с помощью кода
+    //                     |--------|
+    //                   / |3  3  3 |
+    //                 |---------|3 |
+    //               / | 2  2  2 |3 |
+    //              |---------|2 |__|
+    //              | 1  1  1 |2 | /
+    //              | 1  1  1 |__|
+    //              | 1  1  1 | /
+    //              |_________|
     //Средствами отладчика проверьте правильность Вашего решения.
     printf("b) declare not initialized array... : \n");
     int arr1[DIM_SIZE][DIM_SIZE][DIM_SIZE];
@@ -117,15 +117,15 @@ void task1() {
     printf("c) calculate sum: %d\n", sum);
 
     //г) проинициализируйте массив при объявлении:
-    //					 |--------|
-    //				   / |3  0  0 |
-    //    			 |---------|0 |
-    //			   / | 2  0  0 |0 |
-    //			  |---------|0 |__|
-    //			  | 1  0  0 |0 | /
-    //			  | 0  0  0 |__|
-    //			  | 0  0  0 | /
-    //			  |_________|
+    //                     |--------|
+    //                   / |3  0  0 |
+    //                 |---------|0 |
+    //               / | 2  0  0 |0 |
+    //              |---------|0 |__|
+    //              | 1  0  0 |0 | /
+    //              | 0  0  0 |__|
+    //              | 0  0  0 | /
+    //              |_________|
 
     int arr2[DIM_SIZE][DIM_SIZE][DIM_SIZE] = {{{1}},
                                               {{2}},
@@ -143,7 +143,7 @@ void task1() {
 
 void task2() {
     ///////////////////////////////////////////////////////////////
-    //			Динамическое выделение памяти                    //
+    //            Динамическое выделение памяти                    //
     ///////////////////////////////////////////////////////////////
 
     // Задание2. Создайте динамический двухмерный массив с размерностями,
@@ -261,17 +261,17 @@ void task3() {
                 continue;
             }
             int insertInto;
-			for (insertInto = 0; (insertInto < lastIndex && pInt[insertInto] <= value); insertInto++) {}
-			for (int j = lastIndex; j > insertInto; --j) {
-				pInt[j] = pInt[j - 1];
-			}
+            for (insertInto = 0; (insertInto < lastIndex && pInt[insertInto] <= value); insertInto++) {}
+            for (int j = lastIndex; j > insertInto; --j) {
+                pInt[j] = pInt[j - 1];
+            }
             pInt[insertInto] = value;
             //selectionSort(pInt, lastIndex);
-			lastIndex++;
-			printArray(pInt, lastIndex);
+            lastIndex++;
+            printArray(pInt, lastIndex);
         }
-		delete[] pInt;
-		pInt = nullptr;
+        delete[] pInt;
+        pInt = nullptr;
     }
 }
 
@@ -362,34 +362,34 @@ void task5() {
     //Цикл ввода строк:
     //а) выведите приглашение для ввода
     cout << "Enter " << maxAmount << " strings, please (enter '" << STOP_STRING << "' to break): " << endl;
-	
-	
-	//б) пока не введена строка STOP_STRING или не заполнен весь массив
+    
+    
+    //б) пока не введена строка STOP_STRING или не заполнен весь массив
     int nStringNumber;
-	char* pBuffer = new char[80];
+    char* pBuffer = new char[80];
     for (nStringNumber = 0; nStringNumber < maxAmount; nStringNumber++) {
-		cin >> pBuffer;
-		size_t length = 1;
-		char* pointer = pBuffer;
-		while (*(pointer++)) {
-			length++;
-		}
-		
-		//ввод строки в массив ppChar:
+        cin >> pBuffer;
+        size_t length = 1;
+        char* pointer = pBuffer;
+        while (*(pointer++)) {
+            length++;
+        }
+        
+        //ввод строки в массив ppChar:
 
         //если введена строка - признак окончания, то выйти из цикла
 
         if (!strcmp(pBuffer, STOP_STRING)) {
             break;
         }
-		char* str = new char[length];
-		pointer = pBuffer;
-		char* strPointer = str;
-		while (*(strPointer++) = *(pointer++)) {}
-		
+        char* str = new char[length];
+        pointer = pBuffer;
+        char* strPointer = str;
+        while (*(strPointer++) = *(pointer++)) {}
+        
         ppChar[nStringNumber] = str;
     }
-	delete[] pBuffer;
+    delete[] pBuffer;
     //Выдать диагностику о том, что прием строк завершен.
     cout << "Enough..." << endl;
 
@@ -418,70 +418,70 @@ void task5() {
 }
 
 void task5_with_string() {
-	cout << "Task 5" << endl;
-	//Задание 5. Реализуйте задание №4, используя не встроенные,
-	//а динамические массивы (массив?). Так как строки могут быть разной длины,
-	//эффективным решением было бы отводить под каждую строку ровно столько байтов,
-	//сколько требуется для ее хранения.
-	//При этом необходимые параметры (количество строк
-	// сформируйте с помощью потока ввода
+    cout << "Task 5" << endl;
+    //Задание 5. Реализуйте задание №4, используя не встроенные,
+    //а динамические массивы (массив?). Так как строки могут быть разной длины,
+    //эффективным решением было бы отводить под каждую строку ровно столько байтов,
+    //сколько требуется для ее хранения.
+    //При этом необходимые параметры (количество строк
+    // сформируйте с помощью потока ввода
 
-	const char *STOP_STRING = "*";    //признак "прекратить ввод"
+    const char *STOP_STRING = "*";    //признак "прекратить ввод"
 
-	cout << "Enter max amount of strings: ";
-	size_t maxAmount;    //максимальное количество строк в массиве
-	cin >> maxAmount;
-	cout << endl;
-	char **ppChar = new char *[maxAmount];
-	//Цикл ввода строк:
-	//а) выведите приглашение для ввода
-	cout << "Enter " << maxAmount << " strings, please (enter '" << STOP_STRING << "' to break): " << endl;
-	string str;
-	getline(cin, str); // ???
-					   //б) пока не введена строка STOP_STRING или не заполнен весь массив
-	int nStringNumber;
-	for (nStringNumber = 0; nStringNumber < maxAmount; nStringNumber++) {
-		//ввод строки в массив ppChar:
+    cout << "Enter max amount of strings: ";
+    size_t maxAmount;    //максимальное количество строк в массиве
+    cin >> maxAmount;
+    cout << endl;
+    char **ppChar = new char *[maxAmount];
+    //Цикл ввода строк:
+    //а) выведите приглашение для ввода
+    cout << "Enter " << maxAmount << " strings, please (enter '" << STOP_STRING << "' to break): " << endl;
+    string str;
+    getline(cin, str); // ???
+                       //б) пока не введена строка STOP_STRING или не заполнен весь массив
+    int nStringNumber;
+    for (nStringNumber = 0; nStringNumber < maxAmount; nStringNumber++) {
+        //ввод строки в массив ppChar:
 
-		// I know it's weird, but I decided to use string just in order
-		// not to guess the length of a future message
-		// If we didn't have to use char-arrays, it would be more efficient
-		// to use string-arrays
-		getline(cin, str);
+        // I know it's weird, but I decided to use string just in order
+        // not to guess the length of a future message
+        // If we didn't have to use char-arrays, it would be more efficient
+        // to use string-arrays
+        getline(cin, str);
 
-		//если введена строка - признак окончания, то выйти из цикла
-		if (!strcmp(str.c_str(), STOP_STRING)) {
-			break;
-		}
-		char *pChar = new char[str.length()];
-		strcpy(pChar, str.c_str());
-		ppChar[nStringNumber] = pChar;
-	}
-	//Выдать диагностику о том, что прием строк завершен.
-	cout << "Enough..." << endl;
+        //если введена строка - признак окончания, то выйти из цикла
+        if (!strcmp(str.c_str(), STOP_STRING)) {
+            break;
+        }
+        char *pChar = new char[str.length()];
+        strcpy(pChar, str.c_str());
+        ppChar[nStringNumber] = pChar;
+    }
+    //Выдать диагностику о том, что прием строк завершен.
+    cout << "Enough..." << endl;
 
-	//Цикл сортировки строк методом "всплывающего пузырька" в
-	//порядке возрастания кода первого символа
-	for (int i = 0; i < nStringNumber - 1; i++) {
-		for (int j = 0; j < nStringNumber - i - 1; j++) {
-			if (strcmp(ppChar[j], ppChar[j + 1]) > 0) {
-				char *tmp = ppChar[j];
-				ppChar[j] = ppChar[j + 1];
-				ppChar[j + 1] = tmp;
-			}
-		}
-	}
-	printf("Sorted lines:\n");
-	for (int nIndex = 0; nIndex < nStringNumber; nIndex++) {
-		printf("%s \n", ppChar[nIndex]);
-	}
-	printf("\n");
+    //Цикл сортировки строк методом "всплывающего пузырька" в
+    //порядке возрастания кода первого символа
+    for (int i = 0; i < nStringNumber - 1; i++) {
+        for (int j = 0; j < nStringNumber - i - 1; j++) {
+            if (strcmp(ppChar[j], ppChar[j + 1]) > 0) {
+                char *tmp = ppChar[j];
+                ppChar[j] = ppChar[j + 1];
+                ppChar[j + 1] = tmp;
+            }
+        }
+    }
+    printf("Sorted lines:\n");
+    for (int nIndex = 0; nIndex < nStringNumber; nIndex++) {
+        printf("%s \n", ppChar[nIndex]);
+    }
+    printf("\n");
 
-	//Освобождение занятой памяти:
-	for (int i = 0; i < nStringNumber; i++) {
-		delete[] ppChar[i];
-	}
-	delete[] ppChar;
+    //Освобождение занятой памяти:
+    for (int i = 0; i < nStringNumber; i++) {
+        delete[] ppChar[i];
+    }
+    delete[] ppChar;
 }
 
 void task6() {
@@ -490,29 +490,29 @@ void task6() {
     //double dArray[4][3][3] так, как показано на рисунке и напишите фрагмент
     //кода, который меняет местами значения элементов четных
     //и нечетных слоев:
-    //	было:			     |--------|
-    //  				   / |4  4  4 |
-    //					 |--------|	4 |
-    //				   / |3  3  3 |	4 |
-    //    			 |---------|3 |   |
-    //			   / | 2  2  2 |3 | /
-    //			  |---------|2 |__|
-    //			  | 1  1  1 |2 | /
-    //			  | 1  1  1 |__|
-    //			  | 1  1  1 | /
-    //			  |_________|
+    //    было:              |---------|
+    //                     / | 4  4  4 |
+    //                    |---------|4 |
+    //                  / | 3  3  3 |4 |
+    //                 |---------|3 |  |
+    //               / | 2  2  2 |3 | /
+    //              |---------|2 |__|
+    //              | 1  1  1 |2 | /
+    //              | 1  1  1 |__|
+    //              | 1  1  1 | /
+    //              |_________|
 
-    //	стало:			     |--------|
-    //  				   / |3  3  3 |
-    //					 |--------|	3 |
-    //				   / |4  4  4 |	3 |
-    //    			 |---------|4 |   |
-    //			   / | 1  1  1 |4 | /
-    //			  |---------|1 |__|
-    //			  | 2  2  2 |1 | /
-    //			  | 2  2  2 |__|
-    //			  | 2  2  2 | /
-    //			  |_________|
+    //    стало:                 |---------|
+    //                         / | 3  3  3 |
+    //                        |---------|3 |
+    //                      / | 4  4  4 |3 |
+    //                     |---------|4 |  |
+    //                   / | 1  1  1 |4 | /
+    //                  |---------|1 |__|
+    //                  | 2  2  2 |1 | /
+    //                  | 2  2  2 |__|
+    //                  | 2  2  2 | /
+    //                  |_________|
 
     double dArray[][3][3] = {{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}},
                              {{2, 2, 2}, {2, 2, 2}, {2, 2, 2}},
@@ -541,69 +541,69 @@ void task6() {
 }
 
 void task6_incorrect() {
-	//Задание 6. Объявление и использование указателей на многомерные
-	// массивы. Проинициализируйте трехмерный массив
-	//double dArray[4][3][3] так, как показано на рисунке и напишите фрагмент
-	//кода, который меняет местами значения элементов четных
-	//и нечетных слоев:
-	//	было:			     |--------|
-	//  				   / |4  4  4 |
-	//					 |--------|	4 |
-	//				   / |3  3  3 |	4 |
-	//    			 |---------|3 |   |
-	//			   / | 2  2  2 |3 | /
-	//			  |---------|2 |__|
-	//			  | 1  1  1 |2 | /
-	//			  | 1  1  1 |__|
-	//			  | 1  1  1 | /
-	//			  |_________|
+    //Задание 6. Объявление и использование указателей на многомерные
+    // массивы. Проинициализируйте трехмерный массив
+    //double dArray[4][3][3] так, как показано на рисунке и напишите фрагмент
+    //кода, который меняет местами значения элементов четных
+    //и нечетных слоев:
+    //    было:              |---------|
+    //                     / | 4  4  4 |
+    //                    |---------|4 |
+    //                  / | 3  3  3 |4 |
+    //                 |---------|3 |  |
+    //               / | 2  2  2 |3 | /
+    //              |---------|2 |__|
+    //              | 1  1  1 |2 | /
+    //              | 1  1  1 |__|
+    //              | 1  1  1 | /
+    //              |_________|
 
-	//	стало:			     |--------|
-	//  				   / |3  3  3 |
-	//					 |--------|	3 |
-	//				   / |4  4  4 |	3 |
-	//    			 |---------|4 |   |
-	//			   / | 1  1  1 |4 | /
-	//			  |---------|1 |__|
-	//			  | 2  2  2 |1 | /
-	//			  | 2  2  2 |__|
-	//			  | 2  2  2 | /
-	//			  |_________|
+    //    стало:                 |---------|
+    //                         / | 3  3  3 |
+    //                        |---------|3 |
+    //                      / | 4  4  4 |3 |
+    //                     |---------|4 |  |
+    //                   / | 1  1  1 |4 | /
+    //                  |---------|1 |__|
+    //                  | 2  2  2 |1 | /
+    //                  | 2  2  2 |__|
+    //                  | 2  2  2 | /
+    //                  |_________|
 
-	//    double dArray[][3][3] = {{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}},
-	//                          {{2, 2, 2}, {2, 2, 2}, {2, 2, 2}},
-	//                          {{3, 3, 3}, {3, 3, 3}, {3, 3, 3}},
-	//                          {{4, 4, 4}, {4, 4, 4}, {4, 4, 4}}};
-	const size_t sizeX = 3;
-	const size_t sizeY = 3;
-	const size_t sizeZ = 4;
+    //    double dArray[][3][3] = {{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}},
+    //                          {{2, 2, 2}, {2, 2, 2}, {2, 2, 2}},
+    //                          {{3, 3, 3}, {3, 3, 3}, {3, 3, 3}},
+    //                          {{4, 4, 4}, {4, 4, 4}, {4, 4, 4}}};
+    const size_t sizeX = 3;
+    const size_t sizeY = 3;
+    const size_t sizeZ = 4;
 
-	double ***dArray = new double **[sizeZ];
-	for (int z = 0; z < sizeZ; z++) {
-		dArray[z] = new double *[sizeY];
-		for (int y = 0; y < sizeY; y++) {
-			dArray[z][y] = new double[sizeX];
-			for (int x = 0; x < sizeX; x++) {
-				dArray[z][y][x] = z;
-			}
-		}
-	}
-	printArray(dArray, sizeX, sizeY, sizeZ);
-	for (int i = 0; i < sizeof(dArray); i += 2) {
-		//Замечание: НЕ НУЖНО МОДИФИЦИРОВАТЬ ВЫРАЖЕНИЯ СПРАВА ОТ ЗНАКА РАВЕНСТВА!!!
-		double **t = dArray[i];
-		dArray[i] = dArray[i + 1];
-		dArray[i + 1] = t;
-		//переставляем местами элементы i-того и i+1-ого слоев
-	}
-	printArray(dArray, sizeX, sizeY, sizeZ);
-	for (int z = 0; z < sizeZ; z++) {
-		for (int y = 0; y < sizeY; y++) {
-			delete[] dArray[z][y];
-		}
-		delete[] dArray[z];
-	}
-	delete[] dArray;
+    double ***dArray = new double **[sizeZ];
+    for (int z = 0; z < sizeZ; z++) {
+        dArray[z] = new double *[sizeY];
+        for (int y = 0; y < sizeY; y++) {
+            dArray[z][y] = new double[sizeX];
+            for (int x = 0; x < sizeX; x++) {
+                dArray[z][y][x] = z;
+            }
+        }
+    }
+    printArray(dArray, sizeX, sizeY, sizeZ);
+    for (int i = 0; i < sizeof(dArray); i += 2) {
+        //Замечание: НЕ НУЖНО МОДИФИЦИРОВАТЬ ВЫРАЖЕНИЯ СПРАВА ОТ ЗНАКА РАВЕНСТВА!!!
+        double **t = dArray[i];
+        dArray[i] = dArray[i + 1];
+        dArray[i + 1] = t;
+        //переставляем местами элементы i-того и i+1-ого слоев
+    }
+    printArray(dArray, sizeX, sizeY, sizeZ);
+    for (int z = 0; z < sizeZ; z++) {
+        for (int y = 0; y < sizeY; y++) {
+            delete[] dArray[z][y];
+        }
+        delete[] dArray[z];
+    }
+    delete[] dArray;
 }
 
 void task7() {
