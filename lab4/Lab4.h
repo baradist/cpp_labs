@@ -24,5 +24,7 @@ int Min(const int pInt[N][M]);
 template<typename T>
 int Min(T **ppT, size_t X, size_t Y);
 
+int MyStrCmp(const char *s1, const char *s2);
+
 template<typename T>
 void printArray(T **arr, size_t X, size_t Y);
