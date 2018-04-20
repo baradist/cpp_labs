@@ -20,39 +20,9 @@ using namespace std;
 int main() {
     task1();
     task2();
-    task3();
+//    task3();
+    task4();
 
-/*
-	//Задание 4.Ссылки в качестве параметров. Передача указателя на встроенный
-	//массив в качестве параметра функции.
-	//Напишите две взаимодополняющие друг друга функции:
-	//1.  ... DayOfYear(...)
-	//- преобразует день месяца (число,месяц и год задаются в качестве параметров)
-	//в порядковый день года(возвращаемое значение)
-	//2. ... DayOfMonth(...) - функция преобразует порядковый день года в день месяца
-	// (принимает год и порядковый день года в качестве параметров и должна сформировать
-	// день месяца и номер месяца и каким-то образом сообщить эти значения вызывающей процедуре)
-	
-	//Проверьте работоспособность обеих функций с помощью следующего фрагмента:
-	
-
-	//В процессе вычислений Вам придется учитывать "високосный - невисокосный" год.
-	//Для этого предлагается в каждую функцию в качестве одного из параметров передавать
-	//данные приведенного ниже двухмерного массива nDayTab
-
-	int nDayTab[2][12]={
-		{31,28,31,30,31,30,31,31,30,31,30,31}, //невисокосный год
-		{31,29,31,30,31,30,31,31,30,31,30,31}	};	//високосный год
-	
-	//Вызов функции DayOfYear
-	//...
-
-
-	//Проверка результата обратной функцией DayOfMonth
-	//...
-
-	stop
-*/
 	//Задание 5. Создайте одномерный массив (размерность вычисляется в процессе
 	//выполнения программы), заполните его значениями.
 	//Напишите функцию, которая добавляет в массив ервре значение только при
@@ -293,7 +263,6 @@ int MyStrCmp(const char *s1, const char *s2) {
     return 0;
 }
 
-
 template<typename T>
 void printArray(T **arr, size_t X, size_t Y) {
     for (int y = 0; y < Y; y++) {
@@ -301,5 +270,110 @@ void printArray(T **arr, size_t X, size_t Y) {
             cout << arr[y][x] << ' ';
         }
         cout << endl;
+    }
+}
+
+void task4() {
+
+    //Задание 4.Ссылки в качестве параметров. Передача указателя на встроенный
+    //массив в качестве параметра функции.
+    //Напишите две взаимодополняющие друг друга функции:
+    //1.  ... DayOfYear(...)
+    //- преобразует день месяца (число,месяц и год задаются в качестве параметров)
+    //в порядковый день года(возвращаемое значение)
+    //2. ... DayOfMonth(...) - функция преобразует порядковый день года в день месяца
+    // (принимает год и порядковый день года в качестве параметров и должна сформировать
+    // день месяца и номер месяца и каким-то образом сообщить эти значения вызывающей процедуре)
+
+    //Проверьте работоспособность обеих функций с помощью следующего фрагмента:
+
+
+    //В процессе вычислений Вам придется учитывать "високосный - невисокосный" год.
+    //Для этого предлагается в каждую функцию в качестве одного из параметров передавать
+    //данные приведенного ниже двухмерного массива nDayTab
+
+    int nDayTab[2][12] = {
+            {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}, //невисокосный год
+            {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}};    //високосный год
+
+    testTask4(nDayTab, 2018);
+    testTask4(nDayTab, 2000);
+}
+
+inline
+void testTask4(int nDayTab[2][12], int testYear) {
+    int isLeap = __isleap(testYear) ? 1 : 0;
+    int dayOfYear;
+    int dayOfMonth;
+    int month;
+    int &rDayOfMonth = dayOfMonth;
+    int &rMonth = month;
+    printf("The year (%d) is leap - %d test: \n", testYear, isLeap);
+    for (int i = 0, monthNum = 1; i < 12; i++, monthNum++) {
+        //Вызов функции DayOfYear
+        dayOfYear = DayOfYear(testYear, monthNum, nDayTab[isLeap][i]);
+        printf("DayOfYear(%d, %2d, %2d) = %d\n", testYear, monthNum, nDayTab[isLeap][i], dayOfYear);
+
+        //Проверка результата обратной функцией DayOfMonth
+        DayOfMonth(testYear, dayOfYear, rDayOfMonth, rMonth);
+        printf("DayOfMonth(%d, %d, rDayOfMonth, rMonth): dayOfMonth = %d, month - %d\t",
+               testYear, dayOfYear, rDayOfMonth, rMonth);
+        printf("Initial days in the %d month = %d\n", monthNum, nDayTab[isLeap][i]);
+    }
+}
+
+int DayOfYear(unsigned int year, int month, int day) {
+
+    switch (month) {
+        case 12:
+            day += 30;
+        case 11:
+            day += 31;
+        case 10:
+            day += 30;
+        case 9:
+            day += 31;
+        case 8:
+            day += 31;
+        case 7:
+            day += 30;
+        case 6:
+            day += 31;
+        case 5:
+            day += 30;
+        case 4:
+            day += 31;
+        case 3:
+            day += __isleap(year) ? 29 : 28;
+        case 2:
+            day += 31;
+    }
+    return day;
+}
+
+void DayOfMonth(const int &year, const int &dayOfYear, int &dayOfMonth, int &month) {
+// функция преобразует порядковый день года в день месяца
+// (принимает год и порядковый день года в качестве параметров и должна сформировать
+// день месяца и номер месяца и каким-то образом сообщить эти значения вызывающей процедуре)
+    month = 0;
+    int currentMonthsDays;
+    dayOfMonth = dayOfYear;
+    do {
+        currentMonthsDays = daysInMonth(year, ++month);
+    } while (dayOfMonth > currentMonthsDays && (dayOfMonth -= currentMonthsDays));
+}
+
+inline
+int daysInMonth(const int &year, const int &month) {
+    switch (month) {
+        case 2:
+            return __isleap(year) ? 29 : 28;
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            return 30;
+        default:
+            return 31;
     }
 }
