@@ -57,3 +57,7 @@ int sequenceSum(int n);
 void task7();
 
 void VarArgs1(int arg1,...);
+
+void task8();
+
+int *MyMin(int *pInt, size_t size);

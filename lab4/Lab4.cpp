@@ -24,16 +24,8 @@ int main() {
 //    task4();
 //    task5();
 //    task6();
-    task7();
-
-
-
-    //Задание 8. Возвращение адреса.
-    //Напишите функцию, которая находит минимальное значение в массиве,
-    // таким образом, чтобы ее вызов можно было использовать слева от знака
-    // равенства: *MyMin(параметры) = 0;
-
-
+//    task7();
+    task8();
 
     return 0;
 }
@@ -364,6 +356,8 @@ void task5() {
     printArray(pInt, size);
     addUnique(&pInt, &size, 1);
     printArray(pInt, size);
+
+    delete[] pInt;
 }
 
 template<typename T>
@@ -485,4 +479,32 @@ void VarArgs1(int arg1, ...) {
     va_end(args);
     //Печать числа элементов
     cout << "Args amount = " << number << endl;
+}
+
+void task8() {
+
+    //Задание 8. Возвращение адреса.
+    //Напишите функцию, которая находит минимальное значение в массиве,
+    // таким образом, чтобы ее вызов можно было использовать слева от знака
+    // равенства: *MyMin(параметры) = 0;
+    size_t size = 5;
+    int *arr = new int[size];
+    for (int i = 0; i < size; ++i) {
+        arr[i] = i;
+    }
+    printArray(arr, size);
+    *MyMin(arr, size) = 7;
+    printArray(arr, size);
+
+    delete[] arr;
+}
+
+int *MyMin(int *pInt, size_t size) {
+    int *pMin = &pInt[0];
+    for (int i = 1; i < size; ++i) {
+        if (pInt[i] < *pMin) {
+            pMin = pInt;
+        }
+    }
+    return pMin;
 }
