@@ -38,3 +38,14 @@ int daysInMonth(const int &year, const int &month);
 void DayOfMonth(const int &year, const int &dayOfYear, int &dayOfMonth, int &month);
 
 void testTask4(int nDayTab[2][12], int testYear);
+
+void task5();
+
+template <typename T>
+bool addUnique(T **pVal, size_t *pSize, T val);
+
+template<typename T>
+bool myEqual(T t, T t1);
+
+template<typename T>
+void printArray(const T *pVal, size_t size);

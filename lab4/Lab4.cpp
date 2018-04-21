@@ -18,23 +18,15 @@ using namespace std;
 
 
 int main() {
-    task1();
-    task2();
+//    task1();
+//    task2();
 //    task3();
-    task4();
+//    task4();
+    task5();
 
-	//Задание 5. Создайте одномерный массив (размерность вычисляется в процессе
-	//выполнения программы), заполните его значениями.
-	//Напишите функцию, которая добавляет в массив ервре значение только при
-	//условии, что такого значения в массиве еще нет. Подсказка: при этом размер
-	//массива должен увеличиться! Функция НЕ ДОЛЖНА ничего возвращать.
-
-    //Для проверки напишите функцию, которая выводит значения всех элементов на экран
-
-
-/*
-	//Задание 6. Рекурсивные функции. Напишите рекурсивную функцию вычисления
-	//суммы первых N натуральных чисел.
+    /*
+    //Задание 6. Рекурсивные функции. Напишите рекурсивную функцию вычисления
+    //суммы первых N натуральных чисел.
 
 
 
@@ -376,4 +368,63 @@ int daysInMonth(const int &year, const int &month) {
         default:
             return 31;
     }
+}
+
+void task5() {
+
+    //Задание 5. Создайте одномерный массив (размерность вычисляется в процессе
+    //выполнения программы), заполните его значениями.
+    //Напишите функцию, которая добавляет в массив ервре значение только при
+    //условии, что такого значения в массиве еще нет. Подсказка: при этом размер
+    //массива должен увеличиться! Функция НЕ ДОЛЖНА ничего возвращать.
+
+    size_t size = 10;
+    int *pInt = new int[size];
+    for (int i = 0; i < size; i++) {
+        pInt[i] = i;//rand() % 10;
+    }
+    //Для проверки напишите функцию, которая выводит значения всех элементов на экран
+    printArray(pInt, size);
+    addUnique(&pInt, &size, 11);
+    printArray(pInt, size);
+    addUnique(&pInt, &size, 1);
+    printArray(pInt, size);
+}
+
+template<typename T>
+void printArray(const T *pVal, size_t size) {
+    for (int i = 0; i < size; ++i) {
+        cout << pVal[i] << "\t";
+    }
+    cout << endl;
+}
+
+template<typename T>
+bool addUnique(T **pVal, size_t *pSize, T val) {
+    // check uniqueness
+    size_t size = *pSize;
+    for (int i = 0; i < size; ++i) {
+        if (myEqual(val, (*pVal)[i])) {
+            return false;
+        }
+    }
+    // copy values to the new array
+    T *pValNew = new T[size + 1];
+    for (int i = 0; i < size; ++i) {
+        pValNew[i] = (*pVal)[i];
+    }
+    pValNew[size] = val;
+    ++(*pSize);
+    delete[] *pVal;
+    *pVal = pValNew;
+
+    return true;
+}
+
+template<typename T>
+bool myEqual(T t, T t1) {
+    if (t == t1) {
+        return true;
+    }
+    return false;
 }
