@@ -49,3 +49,7 @@ bool myEqual(T t, T t1);
 
 template<typename T>
 void printArray(const T *pVal, size_t size);
+
+void task6();
+
+int sequenceSum(int n);

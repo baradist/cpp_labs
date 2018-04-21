@@ -22,15 +22,10 @@ int main() {
 //    task2();
 //    task3();
 //    task4();
-    task5();
-
-    /*
-    //Задание 6. Рекурсивные функции. Напишите рекурсивную функцию вычисления
-    //суммы первых N натуральных чисел.
+//    task5();
+    task6();
 
 
-
-*/
 /*
 	//Задание 7а. Функции с переменным числом параметров.
 	//Напишите функцию (дана заготовка VarArgs, не использующая
@@ -427,4 +422,25 @@ bool myEqual(T t, T t1) {
         return true;
     }
     return false;
+}
+
+void task6() {
+
+    //Задание 6. Рекурсивные функции. Напишите рекурсивную функцию вычисления
+    //суммы первых N натуральных чисел.
+
+    printf("The sum of first %d numbers is: %d\n", 3, sequenceSum(3));
+    printf("The sum of first %d numbers is: %d\n", -3, sequenceSum(-3));
+    printf("The sum of first %d numbers is: %d\n", 10, sequenceSum(10));
+    printf("The sum of first %d numbers is: %d\n", -10, sequenceSum(-10));
+}
+
+int sequenceSum(int n) {
+    if (n > 0) {
+        return n + sequenceSum(n - 1);
+    } else if (!n) {
+        return 0;
+    } else {
+        return -n + sequenceSum(n + 1);
+    }
 }
