@@ -53,3 +53,7 @@ void printArray(const T *pVal, size_t size);
 void task6();
 
 int sequenceSum(int n);
+
+void task7();
+
+void VarArgs1(int arg1,...);
