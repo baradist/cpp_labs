@@ -1,7 +1,8 @@
 #include "other.h"
-
+#include <iostream>
 ///////////////////////////////////////////////////
-
+int valueadfadf = 42;
+int& reff = valueadfadf;
 //ѕодсказка-заготовка дл€ задани€ 5а
 //Ѕез использовани€ макросов
 
@@ -13,7 +14,7 @@ void VarArgs(int arg1, ...) {
     //ѕока не достигнут конец списка:
     while (*p != '\0') {
         // а) печать значени€ очередного аргумента
-        cout << *p << "\t";
+        std::cout << *p << "\t";
         // б) модификаци€ указател€ (он должен указывать на
         //следующий аргумент списка)
         p++;
@@ -21,5 +22,5 @@ void VarArgs(int arg1, ...) {
         number++;
     }
     //ѕечать числа элементов
-    cout << "Args amount = " << number << endl;
+	std::cout << "Args amount = " << number << std::endl;
 }

@@ -9,8 +9,9 @@
 //#include <tchar.h>
 //#include <cstdio>
 #include <cstdarg>
-#include "Lab4.h"
 #include "other.h"
+#include "Lab4.h"
+
 
 using namespace std;
 
@@ -45,8 +46,7 @@ void task1() {
     //Раскомментируйте две следующих строчки. Что следует сделать, чтобы
     //linker не выдавал ошибки при создании exe-файла Подсказка: ссылка ref
     //должна быть внешней
-    extern int ref;
-    ref++;
+    reff++;
 
     //Раскомментируйте следующую строку. Что следует сделать, чтобы
     //компилятор не выдавал ошибки
@@ -57,6 +57,7 @@ void task1() {
     char *pc = &c;
     //Объявите ссылку на указатель.
     char *&rpc = pc;
+	cout << pc << endl;
     cout << rpc << endl;
     // Посредством ссылки измените
     //а) значение по адресу
@@ -143,7 +144,7 @@ void task3() {
     int ar[N][M] = {{1, 2, 3, 5},
                     {5, 6, 7, 8}};
     //подумайте - как и где должны быть заданы N и M
-    int res = Min(ar);
+    int res = Min(ar, N);
     printf("The minimum is %d\n", res);
 
     //2. в динамическом двухмерном массиве (обе размерности вычисляются)
@@ -192,20 +193,21 @@ void task3() {
 
 template<typename T>
 int Min(T **ppT, size_t X, size_t Y) {
-    T *p = *ppT;
-    T min = *p;
-    for (int i = 1; i < X * Y; ++i) {
-        if (*(p + i) < min) {
-            min = *p;
-        }
+    T min = ppT[0][0];
+    for (int y = 0; y < Y; ++y) {
+		for (int x = 0; x < X; ++x) {
+			if (ppT[y][x] < min) {
+				min = ppT[y][x];
+			}
+		}
     }
     return min;
 }
 
-int Min(const int pInt[N][M]){
+int Min(const int pInt[][M], size_t X){
     const int *p = pInt[0];
     int min = *p;
-    for (int i = 1; i < N * M; ++i) {
+    for (int i = 1; i < X * M; ++i) {
         if (*(p + i) < min) {
             min = *p;
         }
@@ -261,7 +263,7 @@ void task4() {
 
 inline
 void testTask4(int nDayTab[2][12], int testYear) {
-    int isLeap = __isleap(testYear) ? 1 : 0;
+    int isLeap = isLeapYear(testYear) ? 1 : 0;
     int dayOfYear;
     int dayOfMonth;
     int month;
@@ -279,6 +281,10 @@ void testTask4(int nDayTab[2][12], int testYear) {
                testYear, dayOfYear, rDayOfMonth, rMonth);
         printf("Initial days in the %d month = %d\n", monthNum, nDayTab[isLeap][i]);
     }
+}
+
+int isLeapYear(unsigned int year) {
+	return !(year % 4) && (!(year % 400) || (year % 100));
 }
 
 int DayOfYear(unsigned int year, int month, int day) {
@@ -303,7 +309,7 @@ int DayOfYear(unsigned int year, int month, int day) {
         case 4:
             day += 31;
         case 3:
-            day += __isleap(year) ? 29 : 28;
+            day += isLeapYear(year) ? 29 : 28;
         case 2:
             day += 31;
     }
@@ -326,7 +332,7 @@ inline
 int daysInMonth(const int &year, const int &month) {
     switch (month) {
         case 2:
-            return __isleap(year) ? 29 : 28;
+            return isLeapYear(year) ? 29 : 28;
         case 4:
         case 6:
         case 9:
@@ -432,51 +438,28 @@ void task7() {
     VarArgs(nN1, 0);
     VarArgs(nN1, nN2, 0);
     VarArgs(nN1, nN2, nN3, nN4, nN5, 0);
-
-
-    //Задание 7б. Модифицируйте функцию 5а с помощью макросов
-    // va_start, va_arg, va_end
+	
+	//Задание 7б. Модифицируйте функцию 5а с помощью макросов
+	// va_start, va_arg, va_end
+	VarArgs1(nN1, 0);
+	VarArgs1(nN1, nN2, 0);
+	VarArgs1(nN1, nN2, nN3, nN4, nN5, 0);
 }
 
-void VarArgs(int arg1, ...) {
-    // TODO: doesn't work
-    int number = 0;    //счетчик элементов
-    //Объявите указатель на int и инициализируйте его адресом
-    //первого аргумента
-    int *p = &arg1;
-    //Пока не достигнут конец списка:
-    while (*p != '\0') {
-        // а) печать значения очередного аргумента
-        cout << *p << "\t";
-        // б) модификация указателя (он должен указывать на
-        //следующий аргумент списка)
-        p++;
-        // в) увеличить счетчик элементов
-        number++;
-    }
-    //Печать числа элементов
-    cout << "Args amount = " << number << endl;
-}
 
-void VarArgs1(int arg1, ...) {
-    // TODO: doesn't work
-    va_list args;
-    va_start(args, arg1);
+void VarArgs1(int v, ...) {
     int number = 0;    //счетчик элементов
-    //Объявите указатель на int и инициализируйте его адресом
-    //первого аргумента
-    int *p = &arg1;
-    //Пока не достигнут конец списка:
-    while (*p != '\0') {
-        // а) печать значения очередного аргумента
-        cout << va_arg(args, int) << "\t";
-        // б) модификация указателя (он должен указывать на
-        //следующий аргумент списка)
-        p++;
-        // в) увеличить счетчик элементов
-        number++;
-    }
-    va_end(args);
+	int i = v;
+	va_list ap;
+	va_start(ap, v);
+	//Пока не достигнут конец списка:
+	
+	while (i) {
+		cout << i << "\t";
+		i = va_arg(ap, int);
+		++number;
+	}
+    va_end(ap);
     //Печать числа элементов
     cout << "Args amount = " << number << endl;
 }

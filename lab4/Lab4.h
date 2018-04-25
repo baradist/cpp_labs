@@ -19,7 +19,7 @@ void task3();
 const size_t N = 2;
 const size_t M = 4;
 
-int Min(const int pInt[N][M]);
+int Min(const int pInt[][M], size_t X);
 
 template<typename T>
 int Min(T **ppT, size_t X, size_t Y);
@@ -30,6 +30,8 @@ template<typename T>
 void printArray(T **arr, size_t X, size_t Y);
 
 void task4();
+
+int isLeapYear(unsigned int year);
 
 int DayOfYear(unsigned int year, int month, int day);
 
