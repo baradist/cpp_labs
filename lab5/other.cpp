@@ -2,8 +2,10 @@
 
 ///////////////////////////////////////////////////
 
+#include <cstring>
+
 void Sort(char* pcFirst, int nNumber, int size,
-	 void (*Swap)(void*, void*), int (*Compare)(void*, void*) )
+          void (*Swap)(void*, void*), int (*Compare)(void*, void*) )
 {
 	int i;
 	for(i=1; i<nNumber; i++)
@@ -39,4 +41,16 @@ void SwapDouble(void* p1, void* p2)
 int CmpDouble(void* p1, void* p2)
 {
     return *static_cast<double *>(p1) - *static_cast<double *>(p2);
+}
+
+void SwapStr(void* p1, void* p2)
+{
+    char *t = *static_cast<char **>(p1);
+    *static_cast<char **>(p1) = *static_cast<char **>(p2);
+    *static_cast<char **>(p2) = t;
+}
+
+int CmpStr(void* p1, void* p2)
+{
+    return strcmp(*static_cast<char **>(p1), *static_cast<char **>(p2));
 }
