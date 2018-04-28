@@ -54,3 +54,16 @@ int CmpStr(void* p1, void* p2)
 {
     return strcmp(*static_cast<char **>(p1), *static_cast<char **>(p2));
 }
+
+// task 3
+const char *GetString1() {
+    return "String 1";
+}
+
+const char *GetString2() {
+    return "String 2";
+}
+
+const char *GetString3() {
+    return "String 3";
+}
