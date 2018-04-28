@@ -28,3 +28,15 @@ int CmpInt(void* p1, void* p2)
 {
     return *static_cast<int *>(p1) - *static_cast<int *>(p2);
 }
+
+void SwapDouble(void* p1, void* p2)
+{
+    double t = *static_cast<double *>(p1);
+    *static_cast<double *>(p1) = *static_cast<double *>(p2);
+    *static_cast<double *>(p2) = t;
+}
+
+int CmpDouble(void* p1, void* p2)
+{
+    return *static_cast<double *>(p1) - *static_cast<double *>(p2);
+}

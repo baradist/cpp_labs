@@ -224,24 +224,35 @@ void task2() {
     //<0 - первый элемент меньше, чем второй
     //=0 - равны
     //>0 - первый элемент больше, чем второй
+    {
+        int nAr[] = {5, 4, 3, 2, 1, 0, 9, 8, 7, 6};    //массив для сортировки
 
-    int nAr[] = {5, 4, 3, 2, 1, 0, 9, 8, 7, 6};    //массив для сортировки
+        int nTotal = 10; //количество элементов в массиве
+        //Печать исходного массива
+        printArray(nAr, nTotal);
 
-    int nTotal = 10; //количество элементов в массиве
-    //Печать исходного массива
-    printArray(nAr, nTotal);
+        //Вызов сортировки
+        Sort(reinterpret_cast<char *>(&nAr[0]), nTotal, sizeof(int), SwapInt, CmpInt);
 
-	//Вызов сортировки
-	Sort(reinterpret_cast<char*>(&nAr[0]), nTotal, sizeof(int), SwapInt, CmpInt);
-
-	//Печать результатов сортировки
-    printArray(nAr, nTotal);
-
-/*
+        //Печать результатов сортировки
+        printArray(nAr, nTotal);
+    }
 	//Задание 2б. По аналогии с 8а создайте вспомогательные
 	//функции - SwapDouble и CmpDouble и вызовите функцию Sort
 	//для сортировки массива вещественных значений.
-*/
+    {
+        double dAr[] = {5., 4., 3., 2., 1., 0., 9., 8., 7., 6.};    //массив для сортировки
+
+        int nTotal = 10; //количество элементов в массиве
+        //Печать исходного массива
+        printArray(dAr, nTotal);
+
+        //Вызов сортировки
+        Sort(reinterpret_cast<char *>(&dAr[0]), nTotal, sizeof(double), SwapDouble, CmpDouble);
+
+        //Печать результатов сортировки
+        printArray(dAr, nTotal);
+    }
 /*
 	//Задание 2в*. По аналогии с 8а создайте вспомогательные
 	//функции - SwapStr и CmpStr и вызовите функцию Sort

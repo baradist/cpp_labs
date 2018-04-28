@@ -8,5 +8,8 @@ void Sort(char* pcFirst, int nNumber, int size,
 void SwapInt(void* p1, void* p2);
 int CmpInt(void* p1, void* p2);
 
+void SwapDouble(void* p1, void* p2);
+int CmpDouble(void* p1, void* p2);
+
 template <typename T>
 void printArray(T arr[], int size);
