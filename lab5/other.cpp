@@ -2,8 +2,6 @@
 
 ///////////////////////////////////////////////////
 
-
-
 void Sort(char* pcFirst, int nNumber, int size,
 	 void (*Swap)(void*, void*), int (*Compare)(void*, void*) )
 {
@@ -21,16 +19,12 @@ void Sort(char* pcFirst, int nNumber, int size,
 
 void SwapInt(void* p1, void* p2)
 {
-
-
+    int t = *static_cast<int *>(p1);
+    *static_cast<int *>(p1) = *static_cast<int *>(p2);
+    *static_cast<int *>(p2) = t;
 }
 
 int CmpInt(void* p1, void* p2)
 {
-	int nResult;
-
-
-
-
-	return nResult;
+    return *static_cast<int *>(p1) - *static_cast<int *>(p2);
 }
