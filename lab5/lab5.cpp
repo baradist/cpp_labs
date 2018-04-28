@@ -9,18 +9,24 @@
 //#include <tchar.h>
 #include <iostream>
 //#include <cstdio>
+#include <cmath>
 #include "other.h"
 
 void task1();
 
+void runCalc();
+
+double Sum(const double d1, const double d2);
+
+double Sub(const double d1, const double d2);
+
+double Mul(const double d1, const double d2);
+
+double Div(const double d1, const double d2);
+
 int main()
 {
 	task1();
-
-
-
-
-
 
 	//Задание 2. Указатель на функцию в качестве аргумента.
 	//Дана заготовка функции сортировки любых объектов - Sort.
@@ -181,6 +187,63 @@ void task1() {
     //а Вы выводите результат. Результат получаете посредством вызова
     //соответствующей Вашей функции по указателю.
     //Предусмотрите возможность ввода непредусмотренного знака операции
+    runCalc();
 
+}
 
+void runCalc() {
+    double (*pSum) (double, double) = &Sum;
+    double (*pSub) (double, double) = &Sub;
+    double (*pMul) (double, double) = &Mul;
+    double (*pDiv) (double, double) = &Div;
+    double (*pPow) (double, double) = &pow;
+    double (*pF) (double, double);
+    double x1 = 0;
+    double x2 = 0;
+    char oper;
+
+    while (true) {
+        printf("Type an expression (for example \"1 + 2\"):");
+//	scanf_s("%e %c %e", &x1, &oper, &x2);
+        scanf("%d %c %d", &x1, &oper, &x2);
+
+        switch (oper) {
+            case '+':
+                pF = pSum;
+                break;
+            case '-':
+                pF = pSub;
+                break;
+            case '*':
+                pF = pMul;
+                break;
+            case '/':
+                pF = pDiv;
+                break;
+            case '^':
+                pF = pPow;
+                break;
+            default:
+                printf("Exit\n");
+                return;
+        }
+
+        printf("%e %c %e = %e\n", x1, oper, x2, (*pF)(x1, x2));
+    }
+}
+
+double Sum(const double d1, const double d2) {
+    return d1 + d2;
+}
+
+double Sub(const double d1, const double d2) {
+    return d1 - d2;
+}
+
+double Mul(const double d1, const double d2) {
+    return d1 * d2;
+}
+
+double Div(const double d1, const double d2) {
+    return d1 / d2;
 }
