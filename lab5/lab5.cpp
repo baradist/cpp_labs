@@ -35,8 +35,6 @@ int main() {
 //    task2();
 //    task3();
 
-
-
     //////////////////////////////////////////////////////////////////////////////////////
 
     //Тема. Структуры С.
@@ -63,14 +61,28 @@ int main() {
     //Замечание: если для хранения строки используется массив, необходимо
     //предусмотреть "защиту" от выхода за границы массива.
 
+    printf("Enter a name of the book:\n");
+    scanf("%20s", globalBook.name);
+    fflush(stdin); // TODO: flush doesn't work
 
+    printf("Enter a book's author:\n");
+    scanf("%20s", globalBook.author);
+    fflush(stdin);
+
+    printf("Enter a book's year:\n");
+    scanf("%4d", &globalBook.year);
+    fflush(stdin);
+
+    printf("Choose a category-number (0-2):");
+    scanf("%1d", &globalBook.category);
+    fflush(stdin);
 
     //Задание 4. Напишите функцию, выводящую на экран реквизиты книги.
     //Подумайте: как эффективнее передавать экземпляр BOOK в функцию.
     //Для вывода на консоль используйте функцию стандартной библиотеки
     //printf
 
-
+    printBook(globalBook);
 
     //Задание 5. Напишите функцию для формирования полей структуры.
     //Для ввода используйте функцию стандартной библиотеки scanf
@@ -79,6 +91,31 @@ int main() {
     //меьше, чем... (год появления письменности), категорию ползователь
     //должен выбирать из существующих, цена не может быть отрицательной...
 
+    printf("Enter a name of the book:\n");
+    scanf("%20s", localBook.name);
+    fflush(stdin); // TODO: flush doesn't work
+
+    printf("Enter a book's author:\n");
+    scanf("%20s", localBook.author);
+    fflush(stdin);
+
+    short year;
+    do {
+        printf("Enter a book's year:\n");
+        scanf("%5d", &year);
+        fflush(stdin);
+    } while (!isCorrectYear(year));
+    localBook.year = year;
+
+    int categoryNumber;
+    do {
+        printf("Choose a category-number (0-2):");
+        scanf("%1d", &categoryNumber);
+        fflush(stdin);
+    } while (!isCorrectCategory(categoryNumber));
+    localBook.category = static_cast<Category >(categoryNumber);
+
+    printBook(localBook);
 
     return 0;
 }
