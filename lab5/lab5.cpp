@@ -11,6 +11,7 @@
 //#include <cstdio>
 #include <cmath>
 #include "other.h"
+#include "book.h"
 
 void task1();
 
