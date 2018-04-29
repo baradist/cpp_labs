@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-//Прототипы используемых в данном задании функций:
+//РџСЂРѕС‚РѕС‚РёРїС‹ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… РІ РґР°РЅРЅРѕРј Р·Р°РґР°РЅРёРё С„СѓРЅРєС†РёР№:
 
 void Sort(char* pcFirst, int nNumber, int size,
 	 void (*Swap)(void*, void*), int (*Compare)(void*, void*) );
@@ -20,3 +20,14 @@ void printArray(T arr[], int size);
 const char* GetString1();
 const char* GetString2();
 const char* GetString3();
+
+
+// C-structs
+enum Category { CATEGORY_1, CATEGORY_2, CATEGORY_3};
+
+struct BOOK {
+    char author[21];
+    char name[21];
+    int year;
+    Category category;
+};
