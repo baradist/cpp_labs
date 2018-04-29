@@ -13,8 +13,8 @@ void Sort(char* pcFirst, int nNumber, int size,
 		{
 			char* pCurrent = pcFirst+j*size;
 			char* pPrevious = pcFirst+(j-1)*size;
-			if((*Compare)( pPrevious, pCurrent ) > 0)//требуется
-												//переставить
+			if((*Compare)( pPrevious, pCurrent ) > 0)//С‚СЂРµР±СѓРµС‚СЃСЏ
+												//РїРµСЂРµСЃС‚Р°РІРёС‚СЊ
 				(*Swap)( pPrevious, pCurrent );
 		}
 }
