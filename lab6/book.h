@@ -1,16 +1,19 @@
 #pragma once
 
-enum Category { CATEGORY_1, CATEGORY_2, CATEGORY_3};
-
-struct BOOK {
-    wchar_t author[21];
-    wchar_t name[21];
-    short year;
-    Category category;
+enum eCategory{ PROSE, POESY , SCIENCE , UNDEF };
+struct BOOK
+{
+    char author[30]; //автор
+    char name[80]; //название
+    int year; //год издания
+    float price; //цена
+    eCategory category; //категория
 };
 
 void printBook(BOOK &book);
 
-bool isCorrectYear(short year);
+bool isCorrectYear(int year);
 
 bool isCorrectCategory(int number);
+
+bool fillNewBook(BOOK &newBook);
