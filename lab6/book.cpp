@@ -56,7 +56,8 @@ bool fillNewBook(BOOK &newBook) {
         fflush(stdin);
     } while (!isCorrectYear(year));
     newBook.year = year;
-
+	// TODO: ask for price
+	newBook.price = 0.;
     int categoryNumber;
     do {
         printf("Choose a category-number (0-3):");

@@ -38,9 +38,7 @@ int main()
 
 	BOOK *pB = new BOOK[2];
 	CARD_INDEX cardIndex = { &pB, 0, 2};
-    //cardIndex.cap = 2;
-    //*cardIndex.pB = new BOOK[cardIndex.cap];
-
+    
 	//Пользователь должен иметь возможность по своему желанию выполнять
 	//разные действия с картотекой => нужно такую возможность ему
 	//предоставить: это может выглядеть как вывод "меню" (перечень
@@ -83,19 +81,25 @@ int main()
                 break;
             case '3':
                 // remove books
+				int index;
+				printf("Choose a book's index to remove: \n");
+				scanf("%d", &index);
+				removeBook(&cardIndex, index);
                 break;
             case '4':
                 // export
+				exportCardIndexToFile(&cardIndex, "card_index.txt");
                 break;
             case '5':
                 // import
+				importCardIndexFromFile(&cardIndex, "card_index.txt");
                 break;
             case 'x':
             case 'X':
                 return 0;
         }
     }
-
+	delete[] *cardIndex.pB;
 	//Подсказка: для файлового ввода/вывода используйте функции fprintf и fscanf
 	//(заголовочный файл <cstdio>
 

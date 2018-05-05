@@ -13,3 +13,9 @@ struct CARD_INDEX
 void printBooks(CARD_INDEX cardIndex);
 
 void addBook(CARD_INDEX *pCard, BOOK &book);
+
+void removeBook(CARD_INDEX *pCard, int index);
+
+void exportCardIndexToFile(CARD_INDEX *pCard, const char *fileName);
+
+void importCardIndexFromFile(CARD_INDEX *pCard, const char *fileName);
