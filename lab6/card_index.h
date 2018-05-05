@@ -23,3 +23,15 @@ void removeBook(CARD_INDEX *pCard, int index);
 void exportCardIndexToFile(CARD_INDEX *pCard, const char *fileName);
 
 void importCardIndexFromFile(CARD_INDEX *pCard, const char *fileName);
+
+void Sort(char* pcFirst, int nNumber, int size,
+	void(*Swap)(void*, void*), int(*Compare)(void*, void*));
+
+void SwapByName(void* p1, void* p2);
+
+int CmpByName(void* p1, void* p2);
+
+void SwapByYear(void* p1, void* p2);
+
+int CmpByYear(void* p1, void* p2);
+

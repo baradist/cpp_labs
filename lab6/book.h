@@ -10,6 +10,8 @@ struct BOOK
     eCategory category; //категория
 };
 
+enum SortBy {NAME, YEAR};
+
 void printBook(BOOK &book);
 
 bool isCorrectYear(int year);

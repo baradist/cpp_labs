@@ -1,9 +1,13 @@
+#include <cstring>
 #include "card_index.h"
 
 void run() {
 	//setlocale(LC_CTYPE, ".866");
 	BOOK *pB = new BOOK[2];
 	CARD_INDEX cardIndex = { &pB, 0, 2 };
+	
+	void(*pSwap[2])(void*, void*) = {SwapByName, SwapByYear};
+	int(*pCmp[2])(void*, void*) = { CmpByName, CmpByYear };
 
 	printf("Welcome to our library!\n");
 	char actionNumber = 'x';
@@ -39,6 +43,13 @@ void run() {
 			// import
 			importCardIndexFromFile(&cardIndex, "card_index.txt");
 			break;
+		case '6':
+			// sort
+			{
+				SortBy sortBy = YEAR;
+				Sort(reinterpret_cast<char *>(&cardIndex.pB[0]), cardIndex.count, sizeof(BOOK), pSwap[sortBy], pCmp[sortBy]);
+			}
+			break;
 		case 'x':
 		case 'X':
 			delete[] * cardIndex.pB;
@@ -54,6 +65,7 @@ char askForAction() {
 		"3) remove books\n"
 		"4) export books to a file\n"
 		"5) import books from a file\n"
+		"6) sort books\n"
 		"x) EXIT\n"
 		"(type 1-5 or x):\n");
 	scanf("%1s", actionStr);
@@ -138,4 +150,43 @@ void importCardIndexFromFile(CARD_INDEX * pCard, const char * fileName)
 		addBook(pCard, *newBook);
 	}
 	fclose(f);
+}
+
+void Sort(char* pcFirst, int nNumber, int size,
+	void(*Swap)(void*, void*), int(*Compare)(void*, void*))
+{
+	int i;
+	for (i = 1; i<nNumber; i++)
+		for (int j = nNumber - 1; j >= i; j--)
+		{
+			char* pCurrent = pcFirst + j * size;
+			char* pPrevious = pcFirst + (j - 1)*size;
+			if ((*Compare)(pPrevious, pCurrent) > 0)//требуется
+													//переставить
+				(*Swap)(pPrevious, pCurrent);
+		}
+}
+
+void SwapByName(void* p1, void* p2)
+{
+	BOOK t = *static_cast<BOOK *>(p1);
+	*static_cast<BOOK *>(p1) = *static_cast<BOOK *>(p2);
+	*static_cast<BOOK *>(p2) = t;
+}
+
+int CmpByName(void* p1, void* p2)
+{
+	return strcmp(static_cast<BOOK *>(p1)->name, static_cast<BOOK *>(p2)->name);
+}
+
+void SwapByYear(void* p1, void* p2)
+{
+	BOOK t = *static_cast<BOOK *>(p1);
+	*static_cast<BOOK *>(p1) = *static_cast<BOOK *>(p2);
+	*static_cast<BOOK *>(p2) = t;
+}
+
+int CmpByYear(void* p1, void* p2)
+{
+	return static_cast<BOOK *>(p1)->year - static_cast<BOOK *>(p2)->year;
 }
