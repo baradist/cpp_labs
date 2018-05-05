@@ -29,16 +29,11 @@ int main()
 	//   б) хранить строки как расширенные - wchar_t
 	//   в) установить кодировку - setlocale(LC_CTYPE, ".866");
 
-    //setlocale(LC_CTYPE, ".866");
-
-	//Задание 1. Создаем «картотеку».
+    //Задание 1. Создаем «картотеку».
 	//«Картотека» - это массив структур => нужно такой массив создать.
 	//Замечание: размер массива придется увеличивать по мере добавления книг =>
 	//каким должен быть такой массив???
 
-	BOOK *pB = new BOOK[2];
-	CARD_INDEX cardIndex = { &pB, 0, 2};
-    
 	//Пользователь должен иметь возможность по своему желанию выполнять
 	//разные действия с картотекой => нужно такую возможность ему
 	//предоставить: это может выглядеть как вывод "меню" (перечень
@@ -53,57 +48,11 @@ int main()
 
 	//Реализуйте посредством функций разные возможности работы с картотекой
 
-    printf("Welcome to our library!\n");
-    char actionNumber = 'x';
-    while (true) {
-        printf("1) print books\n"
-               "2) add a new book\n"
-               "3) remove books\n"
-               "4) export books to a file\n"
-               "5) import books from a file\n"
-               "x) EXIT\n"
-               "(type 1-5 or x):\n");
-        scanf("%c", &actionNumber);
-        switch (actionNumber) {
-            case '1':
-                printBooks(cardIndex);
-                break;
-            case '2':
-				// add a new book
-			{
-				BOOK *newBook = new BOOK;
-				if (!fillNewBook(*newBook)) {
-					delete newBook;
-					continue;
-				}
-				addBook(&cardIndex, *newBook);
-			}
-                break;
-            case '3':
-                // remove books
-				int index;
-				printf("Choose a book's index to remove: \n");
-				scanf("%d", &index);
-				removeBook(&cardIndex, index);
-                break;
-            case '4':
-                // export
-				exportCardIndexToFile(&cardIndex, "card_index.txt");
-                break;
-            case '5':
-                // import
-				importCardIndexFromFile(&cardIndex, "card_index.txt");
-                break;
-            case 'x':
-            case 'X':
-                return 0;
-        }
-    }
-	delete[] *cardIndex.pB;
+    
 	//Подсказка: для файлового ввода/вывода используйте функции fprintf и fscanf
 	//(заголовочный файл <cstdio>
 
-
+	run();
 
 	
 

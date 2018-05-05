@@ -10,6 +10,10 @@ struct CARD_INDEX
     size_t cap;
 };
 
+void run();
+
+char askForAction();
+
 void printBooks(CARD_INDEX cardIndex);
 
 void addBook(CARD_INDEX *pCard, BOOK &book);

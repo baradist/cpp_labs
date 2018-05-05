@@ -1,5 +1,67 @@
 #include "card_index.h"
 
+void run() {
+	//setlocale(LC_CTYPE, ".866");
+	BOOK *pB = new BOOK[2];
+	CARD_INDEX cardIndex = { &pB, 0, 2 };
+
+	printf("Welcome to our library!\n");
+	char actionNumber = 'x';
+	while (true) {
+		actionNumber = askForAction();
+		switch (actionNumber) {
+		case '1':
+			printBooks(cardIndex);
+			break;
+		case '2':
+			// add a new book
+			{
+				BOOK *newBook = new BOOK;
+				if (!fillNewBook(*newBook)) {
+					delete newBook;
+					continue;
+				}
+				addBook(&cardIndex, *newBook);
+			}
+			break;
+		case '3':
+			// remove books
+			int index;
+			printf("Choose a book's index to remove: \n");
+			scanf("%d", &index);
+			removeBook(&cardIndex, index);
+			break;
+		case '4':
+			// export
+			exportCardIndexToFile(&cardIndex, "card_index.txt");
+			break;
+		case '5':
+			// import
+			importCardIndexFromFile(&cardIndex, "card_index.txt");
+			break;
+		case 'x':
+		case 'X':
+			delete[] * cardIndex.pB;
+			return;
+		}
+	}
+}
+
+char askForAction() {
+	char *actionStr = new char[2];
+	printf("1) print books\n"
+		"2) add a new book\n"
+		"3) remove books\n"
+		"4) export books to a file\n"
+		"5) import books from a file\n"
+		"x) EXIT\n"
+		"(type 1-5 or x):\n");
+	scanf("%1s", actionStr);
+	char actionNumber = actionStr[0];
+	delete[] actionStr;
+	return actionNumber;
+}
+
 void printBooks(CARD_INDEX cardIndex) {
     for (int i = 0; i < cardIndex.count; ++i) {
 		printf("Index: %d\n", i);
