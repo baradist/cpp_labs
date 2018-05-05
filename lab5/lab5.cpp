@@ -33,7 +33,7 @@ BOOK globalBook;
 
 int main() {
 //    task1();
-//    task2();
+    task2();
 //    task3();
 
     //////////////////////////////////////////////////////////////////////////////////////
@@ -63,19 +63,19 @@ int main() {
     //предусмотреть "защиту" от выхода за границы массива.
 
     printf("Enter a name of the book:\n");
-    scanf("%20s", globalBook.name);
+    scanf_s("%20s", globalBook.name);
     fflush(stdin); // TODO: flush doesn't work
 
     printf("Enter a book's author:\n");
-    scanf("%20s", globalBook.author);
+    scanf_s("%20s", globalBook.author);
     fflush(stdin);
 
     printf("Enter a book's year:\n");
-    scanf("%4d", &globalBook.year);
+    scanf_s("%4d", &globalBook.year);
     fflush(stdin);
 
     printf("Choose a category-number (0-2):");
-    scanf("%1d", &globalBook.category);
+    scanf_s("%1d", &globalBook.category);
     fflush(stdin);
 
     //Задание 4. Напишите функцию, выводящую на экран реквизиты книги.
@@ -93,17 +93,17 @@ int main() {
     //должен выбирать из существующих, цена не может быть отрицательной...
 
     printf("Enter a name of the book:\n");
-    scanf("%20s", localBook.name);
+    scanf_s("%20s", localBook.name);
     fflush(stdin); // TODO: flush doesn't work
 
     printf("Enter a book's author:\n");
-    scanf("%20s", localBook.author);
+    scanf_s("%20s", localBook.author);
     fflush(stdin);
 
     short year;
     do {
         printf("Enter a book's year:\n");
-        scanf("%5d", &year);
+        scanf_s("%5d", &year);
         fflush(stdin);
     } while (!isCorrectYear(year));
     localBook.year = year;
@@ -111,7 +111,7 @@ int main() {
     int categoryNumber;
     do {
         printf("Choose a category-number (0-2):");
-        scanf("%1d", &categoryNumber);
+        scanf_s("%1d", &categoryNumber);
         fflush(stdin);
     } while (!isCorrectCategory(categoryNumber));
     localBook.category = static_cast<Category >(categoryNumber);
@@ -129,7 +129,7 @@ void task1() {
     int C = 0;
     printf("Enter A, B and C: ");
 //	scanf_s("%d %d %d", &A, &B, &C);
-    scanf("%d %d %d", &A, &B, &C);
+    scanf_s("%d %d %d", &A, &B, &C);
     //Задание 2. Выведите (красиво!) таблицу значений y=A*x*x + B*x + C
     //при изменении x в диапазоне -2 до +2 с шагом 0.5
     printf("y = A*x*x + B*x + C\n");
@@ -178,7 +178,7 @@ void runCalc() {
     while (true) {
         printf("Type an expression (for example \"1 + 2\"):");
 //	scanf_s("%e %c %e", &x1, &oper, &x2);
-        scanf("%g %c %g", &x1, &oper, &x2);
+        scanf_s("%g %c %g", &x1, &oper, &x2);
 
         switch (oper) {
             case '+':
@@ -275,8 +275,12 @@ void task2() {
     //функции - SwapStr и CmpStr и вызовите функцию Sort
     //для сортировки массива указателей на строки.
     {
-        char s[] = "QWERTY";
-        char *arStr[] = {"WWW", "SDF", "ABC", s, "zxcv"};
+        char s[] = "QWERTY"; // TODO: ???
+		char WWW[] = "WWW";
+		char SDF[] = "SDF";
+		char ABC[] = "ABC";
+		char zxcv[] = "zxcv";
+		char *arStr[] = { WWW, SDF, ABC, s, zxcv };
 
         int nTotal = 5; //количество элементов в массиве
         //Печать исходного массива
@@ -314,7 +318,7 @@ void task3() {
     //Введите номер функции, которую Вы хотите вызвать:
     int n;
     printf("Enter number of GetString-function:\n");
-//    scanf("%d", n);
+//    scanf_s("%d", n);
     n = 2;
     //Вызовите функцию
     const char *gotString = pGetString[n]();
