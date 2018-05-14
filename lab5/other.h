@@ -14,10 +14,6 @@ int CmpDouble(void* p1, void* p2);
 void SwapStr(void* p1, void* p2);
 int CmpStr(void* p1, void* p2);
 
-template <typename T>
-void printArray(T arr[], int size);
-
 const char* GetString1();
 const char* GetString2();
 const char* GetString3();
-

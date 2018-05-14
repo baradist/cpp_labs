@@ -29,12 +29,15 @@ void task2();
 
 void task3();
 
+template <typename T>
+void printArray(T arr[], int size);
+
 BOOK globalBook;
 
 int main() {
-//    task1();
+    task1();
     task2();
-//    task3();
+    task3();
 
     //////////////////////////////////////////////////////////////////////////////////////
 
@@ -63,20 +66,20 @@ int main() {
     //предусмотреть "защиту" от выхода за границы массива.
 
     printf("Enter a name of the book:\n");
-    scanf_s("%20s", globalBook.name);
-    fflush(stdin); // TODO: flush doesn't work
+    scanf("%20s", &globalBook.name);
+    fseek(stdin,0,0); // flush doesn't work
 
     printf("Enter a book's author:\n");
-    scanf_s("%20s", globalBook.author);
-    fflush(stdin);
+    scanf("%20s", &globalBook.author);
+	fseek(stdin, 0, 0);
 
     printf("Enter a book's year:\n");
-    scanf_s("%4d", &globalBook.year);
-    fflush(stdin);
+    scanf("%4d", &globalBook.year);
+	fseek(stdin, 0, 0);
 
     printf("Choose a category-number (0-2):");
-    scanf_s("%1d", &globalBook.category);
-    fflush(stdin);
+    scanf("%1d", &globalBook.category);
+	fseek(stdin, 0, 0);
 
     //Задание 4. Напишите функцию, выводящую на экран реквизиты книги.
     //Подумайте: как эффективнее передавать экземпляр BOOK в функцию.
@@ -93,26 +96,26 @@ int main() {
     //должен выбирать из существующих, цена не может быть отрицательной...
 
     printf("Enter a name of the book:\n");
-    scanf_s("%20s", localBook.name);
-    fflush(stdin); // TODO: flush doesn't work
+    scanf("%20s", localBook.name);
+    fseek(stdin, 0, 0); // flush doesn't work
 
     printf("Enter a book's author:\n");
-    scanf_s("%20s", localBook.author);
-    fflush(stdin);
+    scanf("%20s", localBook.author);
+	fseek(stdin, 0, 0);
 
-    short year;
+    int year;
     do {
         printf("Enter a book's year:\n");
-        scanf_s("%5d", &year);
-        fflush(stdin);
+        scanf("%5d", &year);
+		fseek(stdin, 0, 0);
     } while (!isCorrectYear(year));
     localBook.year = year;
 
     int categoryNumber;
     do {
         printf("Choose a category-number (0-2):");
-        scanf_s("%1d", &categoryNumber);
-        fflush(stdin);
+        scanf("%1d", &categoryNumber);
+		fseek(stdin, 0, 0);
     } while (!isCorrectCategory(categoryNumber));
     localBook.category = static_cast<Category >(categoryNumber);
 
@@ -128,8 +131,7 @@ void task1() {
     int B = 0;
     int C = 0;
     printf("Enter A, B and C: ");
-//	scanf_s("%d %d %d", &A, &B, &C);
-    scanf_s("%d %d %d", &A, &B, &C);
+    scanf("%d %d %d", &A, &B, &C);
     //Задание 2. Выведите (красиво!) таблицу значений y=A*x*x + B*x + C
     //при изменении x в диапазоне -2 до +2 с шагом 0.5
     printf("y = A*x*x + B*x + C\n");
@@ -165,36 +167,38 @@ void task1() {
 }
 
 void runCalc() {
-    double (*pSum)(double, double) = &Sum;
-    double (*pSub)(double, double) = &Sub;
-    double (*pMul)(double, double) = &Mul;
-    double (*pDiv)(double, double) = &Div;
-    double (*pPow)(double, double) = &pow;
-    double (*pF)(double, double);
+    double (*pF)(double, double) = nullptr;
     double x1 = 0;
     double x2 = 0;
     char oper;
 
     while (true) {
+		printf("Enter x for exit, Enter to continue\n");
+		char c;
+		fseek(stdin, 0, 0);
+		scanf("%c", &c);
+		if (c == 'x') {
+			return;
+		}
+		fseek(stdin, 0, 0);
         printf("Type an expression (for example \"1 + 2\"):");
-//	scanf_s("%e %c %e", &x1, &oper, &x2);
-        scanf_s("%g %c %g", &x1, &oper, &x2);
+		scanf("%lf %c %lf", &x1, &oper, &x2);
 
         switch (oper) {
             case '+':
-                pF = pSum;
+                pF = &Sum;
                 break;
             case '-':
-                pF = pSub;
+                pF = &Sub;
                 break;
             case '*':
-                pF = pMul;
+                pF = &Mul;
                 break;
             case '/':
-                pF = pDiv;
+                pF = &Div;
                 break;
             case '^':
-                pF = pPow;
+                pF = &pow;
                 break;
             default:
                 printf("Exit\n");
@@ -258,7 +262,7 @@ void task2() {
     //функции - SwapDouble и CmpDouble и вызовите функцию Sort
     //для сортировки массива вещественных значений.
     {
-        double dAr[] = {5., 4., 3., 2., 1., 0., 9., 8., 7., 6.};    //массив для сортировки
+        double dAr[] = {5.2, 5.1, 5., 4., 3., 2., 1., 0., 9., 8., 7., 6.};    //массив для сортировки
 
         int nTotal = 10; //количество элементов в массиве
         //Печать исходного массива
@@ -275,31 +279,19 @@ void task2() {
     //функции - SwapStr и CmpStr и вызовите функцию Sort
     //для сортировки массива указателей на строки.
     {
-        char s[] = "QWERTY"; // TODO: ???
-		char WWW[] = "WWW";
-		char SDF[] = "SDF";
-		char ABC[] = "ABC";
-		char zxcv[] = "zxcv";
-		char *arStr[] = { WWW, SDF, ABC, s, zxcv };
+        char s[] = "QWERTY";
+		const char *arStr[] = { "WWW", "SDF", "ABC", s, "zxcv", "fffff" };
 
         int nTotal = 5; //количество элементов в массиве
         //Печать исходного массива
         printArray(arStr, nTotal);
 
         //Вызов сортировки
-        Sort(reinterpret_cast<char *>(&arStr[0]), nTotal, sizeof(double), SwapStr, CmpStr);
+        Sort(reinterpret_cast<char *>(&arStr[0]), nTotal, sizeof(char*), SwapStr, CmpStr);
 
         //Печать результатов сортировки
         printArray(arStr, nTotal);
     }
-}
-
-template<typename T>
-void printArray(T arr[], int size) { // TODO: move to other.cpp
-    for (int i = 0; i < size; ++i) {
-        std::cout << arr[i] << "\t";
-    }
-    std::cout << std::endl;
 }
 
 void task3() {
@@ -316,13 +308,21 @@ void task3() {
 
 
     //Введите номер функции, которую Вы хотите вызвать:
-    int n;
-    printf("Enter number of GetString-function:\n");
-//    scanf_s("%d", n);
-    n = 2;
-    //Вызовите функцию
-    const char *gotString = pGetString[n]();
+    printf("Let's call all GetString-functions:\n");
+	for (size_t i = 0; i < 3; i++)
+	{
+		//Вызовите функцию
+		const char *gotString = pGetString[i]();
 
-    //Распечатайте результат
-    printf("Result is: %s\n", gotString);
+		//Распечатайте результат
+		printf("Result is: %s\n", gotString);
+	}
+}
+
+template<typename T>
+void printArray(T arr[], int size) {
+	for (int i = 0; i < size; ++i) {
+		std::cout << arr[i] << "\t";
+	}
+	std::cout << std::endl;
 }

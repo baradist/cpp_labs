@@ -40,7 +40,16 @@ void SwapDouble(void* p1, void* p2)
 
 int CmpDouble(void* p1, void* p2)
 {
-    return *static_cast<double *>(p1) - *static_cast<double *>(p2);
+	double diff = *static_cast<double *>(p1) - *static_cast<double *>(p2);
+	if (diff < 0)
+	{
+		return -1;
+	}
+	else if (diff > 0)
+	{
+		return 1;
+	}
+	return 0;
 }
 
 void SwapStr(void* p1, void* p2)
@@ -57,11 +66,15 @@ int CmpStr(void* p1, void* p2)
 
 // task 3
 const char *GetString1() {
-    return "String 1";
+	static char arr[] = "kkkkkk";
+    return arr;
 }
 
 const char *GetString2() {
-    return "String 2";
+	char *arr = new char[3];
+	arr[0] = 'a';
+	arr[1] = 0;
+    return arr;
 }
 
 const char *GetString3() {
