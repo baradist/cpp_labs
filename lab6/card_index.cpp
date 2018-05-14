@@ -3,8 +3,8 @@
 
 void run() {
 	//setlocale(LC_CTYPE, ".866");
-	BOOK *pB = new BOOK[2];
-	CARD_INDEX cardIndex = { &pB, 0, 2 };
+	BOOK **pB = new BOOK*[2];
+	CARD_INDEX cardIndex = { pB, 0, 2 };
 	
 	void(*pSwap[2])(void*, void*) = {SwapByName, SwapByYear};
 	int(*pCmp[2])(void*, void*) = { CmpByName, CmpByYear };
@@ -47,7 +47,7 @@ void run() {
 			// sort
 			{
 				SortBy sortBy = YEAR;
-				Sort(reinterpret_cast<char *>(&cardIndex.pB[0]), cardIndex.count, sizeof(BOOK), pSwap[sortBy], pCmp[sortBy]);
+				Sort(reinterpret_cast<char *>(&cardIndex.pB[0]), cardIndex.count, sizeof(BOOK*), pSwap[sortBy], pCmp[sortBy]);
 			}
 			break;
 		case 'x':
@@ -81,7 +81,7 @@ void printBooks(CARD_INDEX cardIndex) {
     }
 }
 
-void addBook(CARD_INDEX *pCard, BOOK &book) {
+void addBook(CARD_INDEX *pCard)//, BOOK &book) {
     if (pCard->count >= pCard->cap) //емкость исчерпана
     {
         //перераспределяем память
@@ -94,7 +94,9 @@ void addBook(CARD_INDEX *pCard, BOOK &book) {
         *pCard->pB = newBooks;
     }
     //добавляем книгу в картотеку
-	pCard->pB[pCard->count++] = &book;
+
+
+pCard->pB[pCard->count++] = new BOOK;// &book;
 }
 
 void removeBook(CARD_INDEX *pCard, int index) {
@@ -174,7 +176,7 @@ void SwapByName(void* p1, void* p2)
 	*static_cast<BOOK *>(p2) = t;
 }
 
-int CmpByName(void* p1, void* p2)
+int CmpByName(BOOK* p1, BOOK* p2)
 {
 	return strcmp(static_cast<BOOK *>(p1)->name, static_cast<BOOK *>(p2)->name);
 }
