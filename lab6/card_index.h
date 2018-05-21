@@ -3,8 +3,7 @@
 #include <cstdio>
 #include "book.h"
 
-struct CARD_INDEX
-{
+struct CARD_INDEX {
     BOOK **pB;
     size_t count;
     size_t cap;
@@ -14,24 +13,23 @@ void run();
 
 char askForAction();
 
-void printBooks(CARD_INDEX cardIndex);
+void printBooks(CARD_INDEX *pCard);
 
-void addBook(CARD_INDEX *pCard, BOOK &book);
+void askAndAddNewBook(CARD_INDEX *pCard);
+
+void addBook(CARD_INDEX *pCard, BOOK *book);
 
 void removeBook(CARD_INDEX *pCard, int index);
 
-void exportCardIndexToFile(CARD_INDEX *pCard, const char *fileName);
+void exportpCardToFile(CARD_INDEX *pCard, const char *fileName);
 
-void importCardIndexFromFile(CARD_INDEX *pCard, const char *fileName);
+void importpCardFromFile(CARD_INDEX *pCard, const char *fileName);
 
-void Sort(char* pcFirst, int nNumber, int size,
-	void(*Swap)(void*, void*), int(*Compare)(void*, void*));
+void selectionSort(BOOK *arr[], size_t size, void(*Swap)(BOOK *, BOOK *), int(*Compare)(BOOK *, BOOK *));
 
-void SwapByName(void* p1, void* p2);
+void Swap(BOOK *p1, BOOK *p2);
 
-int CmpByName(void* p1, void* p2);
+int CmpByName(BOOK *p1, BOOK *p2);
 
-void SwapByYear(void* p1, void* p2);
-
-int CmpByYear(void* p1, void* p2);
+int CmpByYear(BOOK *p1, BOOK *p2);
 

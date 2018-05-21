@@ -1,8 +1,9 @@
 #pragma once
 
-enum eCategory{ PROSE, POESY , SCIENCE , UNDEF };
-struct BOOK
-{
+enum eCategory {
+    PROSE, POESY, SCIENCE, UNDEF
+};
+struct BOOK {
     char author[30]; //автор
     char name[80]; //название
     int year; //год издания
@@ -10,12 +11,14 @@ struct BOOK
     eCategory category; //категория
 };
 
-enum SortBy {NAME, YEAR};
+enum SortBy {
+    NAME, YEAR
+};
 
-void printBook(BOOK &book);
+void printBook(BOOK *book);
 
 bool isCorrectYear(int year);
 
 bool isCorrectCategory(int number);
 
-bool fillNewBook(BOOK &newBook);
+bool askToFillNewBook(BOOK *newBook);

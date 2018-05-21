@@ -4,10 +4,10 @@
 void run() {
 	//setlocale(LC_CTYPE, ".866");
 	BOOK **pB = new BOOK*[2];
-	CARD_INDEX cardIndex = { pB, 0, 2 };
-	
-	void(*pSwap[2])(void*, void*) = {SwapByName, SwapByYear};
-	int(*pCmp[2])(void*, void*) = { CmpByName, CmpByYear };
+	CARD_INDEX pCard = { pB, 0, 2 };
+
+//    void (*pSwap[2])(BOOK *, BOOK *) = {SwapByYear, Swap};
+    int (*pCmp[2])(BOOK *, BOOK *) = {CmpByName, CmpByYear};
 
 	printf("Welcome to our library!\n");
 	char actionNumber = 'x';
@@ -15,17 +15,12 @@ void run() {
 		actionNumber = askForAction();
 		switch (actionNumber) {
 		case '1':
-			printBooks(cardIndex);
+			printBooks(&pCard);
 			break;
 		case '2':
 			// add a new book
 			{
-				BOOK *newBook = new BOOK;
-				if (!fillNewBook(*newBook)) {
-					delete newBook;
-					continue;
-				}
-				addBook(&cardIndex, *newBook);
+				askAndAddNewBook(&pCard);
 			}
 			break;
 		case '3':
@@ -33,26 +28,27 @@ void run() {
 			int index;
 			printf("Choose a book's index to remove: \n");
 			scanf("%d", &index);
-			removeBook(&cardIndex, index);
+			removeBook(&pCard, index);
 			break;
 		case '4':
 			// export
-			exportCardIndexToFile(&cardIndex, "card_index.txt");
+			exportpCardToFile(&pCard, "card_index.txt");
 			break;
 		case '5':
 			// import
-			importCardIndexFromFile(&cardIndex, "card_index.txt");
+			importpCardFromFile(&pCard, "card_index.txt");
 			break;
 		case '6':
 			// sort
 			{
-				SortBy sortBy = YEAR;
-				Sort(reinterpret_cast<char *>(&cardIndex.pB[0]), cardIndex.count, sizeof(BOOK*), pSwap[sortBy], pCmp[sortBy]);
+				SortBy sortBy = NAME;
+//				Sort(pCard.pB[0], pCard.count, sizeof(BOOK*), pSwap[sortBy], pCmp[sortBy]);
+            selectionSort(pCard.pB, pCard.count, Swap, pCmp[sortBy]);
 			}
 			break;
 		case 'x':
 		case 'X':
-			delete[] * cardIndex.pB;
+			delete[] * pCard.pB;
 			return;
 		}
 	}
@@ -74,29 +70,38 @@ char askForAction() {
 	return actionNumber;
 }
 
-void printBooks(CARD_INDEX cardIndex) {
-    for (int i = 0; i < cardIndex.count; ++i) {
+void printBooks(CARD_INDEX *pCard) {
+    for (int i = 0; i < pCard->count; ++i) {
 		printf("Index: %d\n", i);
-        printBook(*(cardIndex.pB)[i]);
+
+        printBook((*pCard).pB[i]);
     }
 }
 
-void addBook(CARD_INDEX *pCard)//, BOOK &book) {
+void askAndAddNewBook(CARD_INDEX *pCard) {
+    BOOK *pNewBook = new BOOK;
+    if (!askToFillNewBook(pNewBook)) {
+        delete pNewBook;
+        return;
+    }
+    addBook(pCard, pNewBook);
+}
+
+void addBook(CARD_INDEX *pCard, BOOK *book) {
     if (pCard->count >= pCard->cap) //емкость исчерпана
     {
         //перераспределяем память
         pCard->cap = pCard->cap * 3 / 2 + 1;
-        BOOK *newBooks = new BOOK[pCard->cap];
+        BOOK **pBNew = new BOOK*[pCard->cap];
         for (int i = 0; i < pCard->count; ++i) {
-            newBooks[i] = *(pCard->pB)[i];
+            pBNew[i] = (*pCard).pB[i];
         }
-        delete[] *pCard->pB;
-        *pCard->pB = newBooks;
+        delete[] (*pCard).pB;
+        (*pCard).pB = pBNew;
     }
     //добавляем книгу в картотеку
-
-
-pCard->pB[pCard->count++] = new BOOK;// &book;
+    (*pCard).pB[pCard->count] = book;
+    pCard->count++;
 }
 
 void removeBook(CARD_INDEX *pCard, int index) {
@@ -110,7 +115,7 @@ void removeBook(CARD_INDEX *pCard, int index) {
 	delete[] pCard->pB[--pCard->count];
 }
 
-void exportCardIndexToFile(CARD_INDEX *pCard, const char *fileName) {
+void exportpCardToFile(CARD_INDEX *pCard, const char *fileName) {
 	FILE* f = fopen(fileName, "w");
 	if (!f) {
 		printf("File %s isn't open!\n", fileName);
@@ -129,14 +134,14 @@ void exportCardIndexToFile(CARD_INDEX *pCard, const char *fileName) {
 	fclose(f);
 }
 
-void importCardIndexFromFile(CARD_INDEX * pCard, const char * fileName)
+void importpCardFromFile(CARD_INDEX * pCard, const char * fileName)
 {
 	FILE* f = fopen(fileName, "r");
 	if (!f) {
 		printf("File %s isn't open!\n", fileName);
 		return;
 	}
-	size_t size;
+	int size;
 	fscanf(f, "%d\n", &size);
 	pCard->count = 0;
 	BOOK *newBook;
@@ -144,51 +149,53 @@ void importCardIndexFromFile(CARD_INDEX * pCard, const char * fileName)
 	{
 		newBook = new BOOK;
 		fscanf(f, "%30s %80s %4d %8f %1d",
-			&newBook->author,
-			&newBook->name,
+			newBook->author,
+			newBook->name,
 			&newBook->year,
 			&newBook->price,
 			&newBook->category);
-		addBook(pCard, *newBook);
+		addBook(pCard, newBook);
 	}
 	fclose(f);
 }
 
-void Sort(char* pcFirst, int nNumber, int size,
-	void(*Swap)(void*, void*), int(*Compare)(void*, void*))
-{
-	int i;
-	for (i = 1; i<nNumber; i++)
-		for (int j = nNumber - 1; j >= i; j--)
-		{
-			char* pCurrent = pcFirst + j * size;
-			char* pPrevious = pcFirst + (j - 1)*size;
-			if ((*Compare)(pPrevious, pCurrent) > 0)//требуется
-													//переставить
-				(*Swap)(pPrevious, pCurrent);
-		}
+void selectionSort(BOOK* arr[], size_t size, void(*Swap)(BOOK*, BOOK*), int(*Compare)(BOOK*, BOOK*)) {
+    if (size < 2) {
+        return;
+    }
+    for (int i = 0; i < size - 1; i++) {
+        // find min value
+        int minIndex = i;
+        BOOK* min = arr[minIndex];
+        for (int j = i; j < size; j++) {
+            if (Compare(arr[j], min)) {
+                min = arr[j];
+                minIndex = j;
+            }
+        }
+        // swap with first not sorted
+        if (minIndex != i) {
+            Swap(arr[minIndex], arr[i]);
+//            t = arr[minIndex];
+//            arr[minIndex] = arr[i];
+//            arr[i] = t;
+        }
+    }
 }
 
-void SwapByName(void* p1, void* p2)
+void Swap(BOOK *p1, BOOK *p2)
 {
-	BOOK t = *static_cast<BOOK *>(p1);
-	*static_cast<BOOK *>(p1) = *static_cast<BOOK *>(p2);
-	*static_cast<BOOK *>(p2) = t;
+	BOOK t = *p1;
+	*p1 = *p2;
+	*p2 = t;
 }
 
 int CmpByName(BOOK* p1, BOOK* p2)
 {
-	return strcmp(static_cast<BOOK *>(p1)->name, static_cast<BOOK *>(p2)->name);
+    return strcmp(p1->name, p2->name);
 }
 
-void SwapByYear(void* p1, void* p2)
+int CmpByYear(BOOK* p1, BOOK* p2)
 {
-	BOOK t = *static_cast<BOOK *>(p1);
-	*static_cast<BOOK *>(p1) = *static_cast<BOOK *>(p2);
-	*static_cast<BOOK *>(p2) = t;
-}
-
-int CmpByYear(void* p1, void* p2)
-{
-	return static_cast<BOOK *>(p1)->year - static_cast<BOOK *>(p2)->year;
+	return p1->year - p2->year;
 }

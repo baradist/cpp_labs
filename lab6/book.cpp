@@ -6,14 +6,14 @@
 #include <cstdio>
 #include "book.h"
 
-void printBook(BOOK &book) {
+void printBook(BOOK *book) {
     printf("Author: %s\n"
            "Name: %s\n"
            "Year: %d\n"
            "Price: %f\n"
-           "Category: ", book.name, book.author, book.year);
+           "Category: ", book->name, book->author, book->year);
     // TODO: improve
-    switch (book.category) {
+    switch (book->category) {
         case 0:
             printf("PROSE");
             break;
@@ -27,7 +27,7 @@ void printBook(BOOK &book) {
             printf("UNDEF");
             break;
         default:
-            printf("%d", book.category);
+            printf("%d", book->category);
     }
     printf("\n\n");
 }
@@ -40,31 +40,31 @@ bool isCorrectCategory(int number) {
     return number >= 0 && number < 4;
 }
 
-bool fillNewBook(BOOK &newBook) {
+bool askToFillNewBook(BOOK *newBook) {
     printf("Enter a name of the book:\n");
-    scanf("%79s", newBook.name);
-    fflush(stdin); // TODO: flush doesn't work
+    scanf("%79s", newBook->name);
+    fseek(stdin, 0, 0); // TODO: flush doesn't work
 
     printf("Enter a book's author:\n");
-    scanf("%29s", newBook.author);
-    fflush(stdin);
+    scanf("%29s", newBook->author);
+    fseek(stdin, 0, 0);
 
     int year;
     do {
         printf("Enter a book's year:\n");
         scanf("%4d", &year);
-        fflush(stdin);
+        fseek(stdin, 0, 0);
     } while (!isCorrectYear(year));
-    newBook.year = year;
-	// TODO: ask for price
-	newBook.price = 0.;
+    newBook->year = year;
+    // TODO: ask for price
+    newBook->price = 0.;
     int categoryNumber;
     do {
         printf("Choose a category-number (0-3):");
         scanf("%1d", &categoryNumber);
-        fflush(stdin);
+        fseek(stdin, 0, 0);
     } while (!isCorrectCategory(categoryNumber));
-    newBook.category = static_cast<eCategory >(categoryNumber);
-	
-	return true;
+    newBook->category = static_cast<eCategory >(categoryNumber);
+
+    return true;
 }
