@@ -39,13 +39,12 @@ void run() {
 			importpCardFromFile(&pCard, "card_index.txt");
 			break;
 		case '6':
-			// sort
-			{
-				SortBy sortBy = NAME;
-//				Sort(pCard.pB[0], pCard.count, sizeof(BOOK*), pSwap[sortBy], pCmp[sortBy]);
-            selectionSort(pCard.pB, pCard.count, Swap, pCmp[sortBy]);
-			}
-			break;
+            // sort
+            {
+                SortBy sortBy = askForSortBy();
+                selectionSort(pCard.pB, pCard.count, Swap, pCmp[sortBy]);
+                break;
+            }
 		case 'x':
 		case 'X':
 			delete[] * pCard.pB;
@@ -159,6 +158,15 @@ void importpCardFromFile(CARD_INDEX * pCard, const char * fileName)
 	fclose(f);
 }
 
+SortBy askForSortBy() {
+    printf("how to sort?\n");
+    printf("0 - by name, 1 - by year\n");
+    int i;
+    scanf("%d", &i);
+    fseek(stdin, 0, 0);
+    return static_cast<SortBy> (i);
+}
+
 void selectionSort(BOOK* arr[], size_t size, void(*Swap)(BOOK*, BOOK*), int(*Compare)(BOOK*, BOOK*)) {
     if (size < 2) {
         return;
@@ -166,19 +174,14 @@ void selectionSort(BOOK* arr[], size_t size, void(*Swap)(BOOK*, BOOK*), int(*Com
     for (int i = 0; i < size - 1; i++) {
         // find min value
         int minIndex = i;
-        BOOK* min = arr[minIndex];
-        for (int j = i; j < size; j++) {
-            if (Compare(arr[j], min)) {
-                min = arr[j];
+        for (int j = i + 1; j < size; j++) {
+            if (Compare(arr[j], arr[minIndex]) < 0) {
                 minIndex = j;
             }
         }
-        // swap with first not sorted
         if (minIndex != i) {
+            // swap with first not sorted
             Swap(arr[minIndex], arr[i]);
-//            t = arr[minIndex];
-//            arr[minIndex] = arr[i];
-//            arr[i] = t;
         }
     }
 }

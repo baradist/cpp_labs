@@ -25,6 +25,8 @@ void exportpCardToFile(CARD_INDEX *pCard, const char *fileName);
 
 void importpCardFromFile(CARD_INDEX *pCard, const char *fileName);
 
+SortBy askForSortBy();
+
 void selectionSort(BOOK *arr[], size_t size, void(*Swap)(BOOK *, BOOK *), int(*Compare)(BOOK *, BOOK *));
 
 void Swap(BOOK *p1, BOOK *p2);
