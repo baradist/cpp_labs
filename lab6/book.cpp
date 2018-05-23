@@ -11,8 +11,7 @@ void printBook(BOOK *book) {
            "Name: %s\n"
            "Year: %d\n"
            "Price: %f\n"
-           "Category: ", book->name, book->author, book->year);
-    // TODO: improve
+           "Category: ", book->author, book->name, book->year, 0);
     switch (book->category) {
         case 0:
             printf("PROSE");
