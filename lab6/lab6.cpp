@@ -9,7 +9,7 @@
 
 #include "card_index.h"
 
-//#define	  stop __asm nop
+#define	  stop __asm nop
 
 
 int main() {
@@ -48,10 +48,12 @@ int main() {
     //Подсказка: для файлового ввода/вывода используйте функции fprintf и fscanf
     //(заголовочный файл <cstdio>
 
+	stop
+
     run();
 
 
-
+	stop
 
 
 

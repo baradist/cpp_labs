@@ -36,6 +36,10 @@ void run() {
                 break;
             case '5':
                 // import
+				for (size_t i = 0; i < pCard.count; i++)
+				{
+					delete pCard.pB[i];
+				}
                 importpCardFromFile(&pCard, "card_index.txt");
                 break;
             case '6':
@@ -47,8 +51,14 @@ void run() {
             }
             case 'x':
             case 'X':
-                delete[] *pCard.pB;
-                return;
+			{
+				for (size_t i = 0; i < pCard.count; i++)
+				{
+					delete pCard.pB[i];
+				}
+				delete[] pCard.pB;
+				return;
+			}
         }
     }
 }
@@ -107,10 +117,11 @@ void removeBook(CARD_INDEX *pCard, int index) {
     if (index >= pCard->count || index < 0) {
         printf("Incorrect index (%d)", index);
     }
+	delete pCard->pB[index];
     for (size_t i = index; i < pCard->count - 1; i++) {
-        *pCard->pB[i] = *pCard->pB[i + 1];
+        pCard->pB[i] = pCard->pB[i + 1];
     }
-    delete[] pCard->pB[--pCard->count];
+	pCard->count--;
 }
 
 void exportpCardToFile(CARD_INDEX *pCard, const char *fileName) {
@@ -124,7 +135,7 @@ void exportpCardToFile(CARD_INDEX *pCard, const char *fileName) {
         fprintf(f, "%30s %80s %4d %8f %1d\n",
                 pCard->pB[i]->author,
                 pCard->pB[i]->name,
-                pCard->pB[i]->year,
+                pCard->pB[i]->year, 
                 pCard->pB[i]->price,
                 pCard->pB[i]->category);
     }
