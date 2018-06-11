@@ -3,12 +3,16 @@
 #include "big_integer.h"
 
 int main() {
-    BigInteger *op1 = new BigInteger{new unsigned char[2]{0x0, 0x3}, 2};
-    BigInteger *op2 = new BigInteger{new unsigned char[1]{0x2}, 1};
+    BigInteger *op1 = valueOf(4, 0xff, 0x2, 0x3, 0x4);
+    BigInteger *op2 = valueOf(2, 0xff, 0x0);
 
-    printBigInteger(*op1);
-    printBigInteger(*op2);
-    printBigInteger(*multiply(*op1, *op2));
+    printBigInteger(op1);
+    printBigInteger(op2);
+    BigInteger *result = multiply(op1, op2);
+    printBigInteger(result);
 
+    deleteBigInteger(op1);
+    deleteBigInteger(op2);
+    deleteBigInteger(result);
     return 0;
 }
