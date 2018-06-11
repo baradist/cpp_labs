@@ -3,8 +3,8 @@
 #include "big_integer.h"
 
 int main() {
-    BigInteger *op1 = valueOf(4, 0xff, 0x2, 0x3, 0x4);
-    BigInteger *op2 = valueOf(2, 0xff, 0x0);
+    BigInteger *op1 = valueOf(4, 0x1, 0x2, 0x3, 0x4);
+    BigInteger *op2 = valueOf(2, 0x2, 0x0);
 
     printBigInteger(op1);
     printBigInteger(op2);

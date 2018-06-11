@@ -44,6 +44,9 @@ BigInteger *multiply(const BigInteger *val1, const BigInteger *val2) {
             }
         }
     }
+    if (result[newSize - 1] == 0x00) {
+        newSize--;
+    }
     return new BigInteger{result, newSize};
 }
 
