@@ -3,7 +3,7 @@
 #include "big_integer.h"
 
 void printBigInteger(BigInteger &value) {
-    for (size_t i = 0; i < value.n; i++) {
+    for (int i = value.n - 1; i >= 0; i--) {
         printf(" %0*x", 2, value.p[i]);
     }
     printf("\n");
