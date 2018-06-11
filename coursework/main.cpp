@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <cstring>
 
+#include "big_integer.h"
+
 void printBigInteger(unsigned char * op, size_t size) {
     for (size_t i = 0; i < size; i++)
     {
