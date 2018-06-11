@@ -7,6 +7,8 @@ struct BigInteger {
 
 void printBigInteger(const BigInteger *value);
 
+void printBits(const BigInteger *bigInteger);
+
 BigInteger *multiply(const BigInteger *val1, const BigInteger *val2);
 
 void deleteBigInteger(BigInteger *pInteger);

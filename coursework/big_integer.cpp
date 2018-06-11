@@ -10,6 +10,25 @@ void printBigInteger(const BigInteger *value) {
     printf("\n");
 }
 
+void printBits(const BigInteger *bigInteger) {
+    size_t size = bigInteger->n;
+    unsigned char *value;
+
+    int length = 8 * sizeof(*bigInteger->p);
+
+    for (int j = size - 1; j >= 0; --j) {
+        value = &bigInteger->p[j];
+        for (int i = length - 1; i >= 0; i--) {
+            printf("%d", ((*value >> i) & 1));
+            if (!(i % 8)) {
+                printf(" ");
+            }
+        }
+    }
+    printf("\n");
+}
+
+
 inline int index(int x) {
     return x / 8;
 }
